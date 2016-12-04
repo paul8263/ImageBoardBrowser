@@ -18,6 +18,7 @@
 		2B7C13751DF3A5BA008945BC /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C13741DF3A5BA008945BC /* ImageDownloader.swift */; };
 		2B7C13771DF3C3CE008945BC /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C13761DF3C3CE008945BC /* ImageCollectionViewCell.swift */; };
 		2B7C13791DF3D29C008945BC /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C13781DF3D29C008945BC /* SingleImageViewController.swift */; };
+		2B7C137B1DF3E8BA008945BC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C137A1DF3E8BA008945BC /* SettingsViewController.swift */; };
 		58C2CE548B63AFB44E800333 /* Pods_ImageBoardBrowserUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA2B90F576EDB68ADE9D418 /* Pods_ImageBoardBrowserUITests.framework */; };
 		692950D2FEB13F5B97482D64 /* Pods_ImageBoardBrowserTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1AE7AFBFAC01910F96C941 /* Pods_ImageBoardBrowserTests.framework */; };
 		C380540B2A1F0FEA6C868076 /* Pods_ImageBoardBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF835B53457034CBA7BBBED /* Pods_ImageBoardBrowser.framework */; };
@@ -58,6 +59,7 @@
 		2B7C13741DF3A5BA008945BC /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		2B7C13761DF3C3CE008945BC /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B7C13781DF3D29C008945BC /* SingleImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
+		2B7C137A1DF3E8BA008945BC /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		52AB080B54F8AF082DED3B58 /* Pods-ImageBoardBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageBoardBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageBoardBrowser/Pods-ImageBoardBrowser.release.xcconfig"; sourceTree = "<group>"; };
 		5445406C9FF578CC1F558386 /* Pods-ImageBoardBrowserTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageBoardBrowserTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageBoardBrowserTests/Pods-ImageBoardBrowserTests.release.xcconfig"; sourceTree = "<group>"; };
 		60A9DC9003283A8C82C19E95 /* Pods-ImageBoardBrowserTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageBoardBrowserTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageBoardBrowserTests/Pods-ImageBoardBrowserTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				2B7C136B1DF3A512008945BC /* BrowserViewController.swift */,
 				2B7C13761DF3C3CE008945BC /* ImageCollectionViewCell.swift */,
 				2B7C13781DF3D29C008945BC /* SingleImageViewController.swift */,
+				2B7C137A1DF3E8BA008945BC /* SettingsViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 			files = (
 				2B7C13721DF3A562008945BC /* ImageInfo.swift in Sources */,
 				2B7C13771DF3C3CE008945BC /* ImageCollectionViewCell.swift in Sources */,
+				2B7C137B1DF3E8BA008945BC /* SettingsViewController.swift in Sources */,
 				2B7C133E1DF3A256008945BC /* AppDelegate.swift in Sources */,
 				2B7C13751DF3A5BA008945BC /* ImageDownloader.swift in Sources */,
 				2B7C13791DF3D29C008945BC /* SingleImageViewController.swift in Sources */,

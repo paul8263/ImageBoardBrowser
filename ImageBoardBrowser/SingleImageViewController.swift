@@ -28,6 +28,14 @@ class SingleImageViewController: UIViewController {
         self.scrollView.minimumZoomScale = 1.0
         self.scrollView.maximumZoomScale = 5.0
         
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
+        self.scrollView.addGestureRecognizer(longPressGestureRecognizer)
+    }
+    
+    func longPressed(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            print("Long Pressed")
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
