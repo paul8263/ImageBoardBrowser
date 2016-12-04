@@ -45,15 +45,19 @@ class BrowserViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "showImage" {
+            let singleImageViewController = segue.destination as! SingleImageViewController
+            singleImageViewController.imageInfo = sender as! ImageInfo
+        }
     }
-    */
+    
 
 }
 
@@ -83,6 +87,10 @@ extension BrowserViewController: UICollectionViewDataSource, UICollectionViewDel
         if indexPath.row == imageInfoList.count - 1 {
             loadMoreData()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showImage", sender: imageInfoList[indexPath.row])
     }
     
 }
