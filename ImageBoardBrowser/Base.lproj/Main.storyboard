@@ -330,10 +330,10 @@
             </objects>
             <point key="canvasLocation" x="463.19999999999999" y="902.69865067466276"/>
         </scene>
-        <!--View Controller-->
+        <!--Search View Controller-->
         <scene sceneID="6v1-3Z-ZvV">
             <objects>
-                <viewController id="qne-jc-rbn" sceneMemberID="viewController">
+                <viewController id="qne-jc-rbn" customClass="SearchViewController" customModule="ImageBoardBrowser" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dBx-k8-ffr"/>
                         <viewControllerLayoutGuide type="bottom" id="brP-2I-USG"/>
@@ -341,13 +341,62 @@
                     <view key="view" contentMode="scaleToFill" id="Fki-ys-SLT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="15Z-vb-Mpg">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zvP-lq-rwd">
+                                    <size key="itemSize" width="215" height="229"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="searchImageCollectionViewCell" id="DvE-0m-bb0" customClass="SearchImageCollectionCollectionViewCell" customModule="ImageBoardBrowser" customModuleProvider="target">
+                                        <rect key="frame" x="99.666666666666671" y="0.0" width="215" height="229"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="215" height="229"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BVp-oj-nDV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="215" height="229"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="BVp-oj-nDV" secondAttribute="bottom" id="AH5-P1-Wfp"/>
+                                            <constraint firstItem="BVp-oj-nDV" firstAttribute="top" secondItem="DvE-0m-bb0" secondAttribute="top" id="BSR-Au-GZK"/>
+                                            <constraint firstItem="BVp-oj-nDV" firstAttribute="leading" secondItem="DvE-0m-bb0" secondAttribute="leading" id="bJ4-sn-1Uz"/>
+                                            <constraint firstAttribute="trailing" secondItem="BVp-oj-nDV" secondAttribute="trailing" id="piG-4s-s1z"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="BVp-oj-nDV" id="moB-T0-B0h"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="qne-jc-rbn" id="DiV-l2-wbA"/>
+                                    <outlet property="delegate" destination="qne-jc-rbn" id="2ti-P9-xpW"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="brP-2I-USG" firstAttribute="top" secondItem="15Z-vb-Mpg" secondAttribute="bottom" id="4ph-qr-gyJ"/>
+                            <constraint firstAttribute="trailing" secondItem="15Z-vb-Mpg" secondAttribute="trailing" id="5FU-fn-1Oo"/>
+                            <constraint firstItem="15Z-vb-Mpg" firstAttribute="leading" secondItem="Fki-ys-SLT" secondAttribute="leading" id="F3o-og-WKD"/>
+                            <constraint firstItem="15Z-vb-Mpg" firstAttribute="top" secondItem="Fki-ys-SLT" secondAttribute="top" id="qtP-Re-9OI"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2LL-be-sps"/>
+                    <connections>
+                        <outlet property="imageCollectionView" destination="15Z-vb-Mpg" id="kn5-N2-191"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JAO-TC-FfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2354.4000000000001" y="902.69865067466276"/>
+            <point key="canvasLocation" x="2353.6231884057975" y="902.44565217391312"/>
         </scene>
         <!--Settings-->
         <scene sceneID="gdG-RV-hLk">

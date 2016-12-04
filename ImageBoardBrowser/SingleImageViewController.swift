@@ -41,7 +41,10 @@ class SingleImageViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tagsLabel.text = imageInfo.tags
-        self.imageView.sd_setImage(with: URL(string: imageInfo.sampleUrl)!)
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        self.imageView.sd_setImage(with: URL(string: imageInfo.sampleUrl)!, completed: { void in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        })
     }
 
     override func didReceiveMemoryWarning() {

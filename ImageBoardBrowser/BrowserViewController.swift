@@ -37,10 +37,12 @@ class BrowserViewController: UIViewController {
     }
     
     func loadMoreData() {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         ImageDownloader.downloadImages(withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
             self.imageInfoList += imageInfoList
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         })
     }
     

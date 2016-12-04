@@ -14,8 +14,10 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var safeModeSwitch: UISwitch!
     
     let sdImageCache = SDImageCache.shared()!
+    let standardUserDefaults = UserDefaults.standard
     
     var isSafeModeEnabled = true
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,7 @@ class SettingsViewController: UITableViewController {
     
     func safeModeSwitchValueChanged(sender: UISwitch) {
         print(sender.isOn)
+        standardUserDefaults.set(sender.isOn, forKey: "safeMode")
     }
     
 
