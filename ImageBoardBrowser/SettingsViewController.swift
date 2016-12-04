@@ -39,7 +39,6 @@ class SettingsViewController: UITableViewController {
     
     func safeModeSwitchValueChanged(sender: UISwitch) {
         standardUserDefaults.set(sender.isOn, forKey: "safeMode")
-        print(standardUserDefaults.value(forKey: "safeMode") as! Bool)
     }
 
     /*

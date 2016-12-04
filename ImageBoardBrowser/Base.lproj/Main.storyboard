@@ -89,7 +89,13 @@
                             <constraint firstAttribute="trailing" secondItem="bNx-Bb-Y1b" secondAttribute="trailing" id="iQD-DF-CE9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Browse Image" id="F9P-Uy-q5c"/>
+                    <navigationItem key="navigationItem" title="Browse Image" id="F9P-Uy-q5c">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="jD0-ki-Tqi">
+                            <connections>
+                                <action selector="rightBarButtonItemTouched:" destination="uj5-uH-1wn" id="poF-Jo-XkL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="imageCollectionView" destination="bNx-Bb-Y1b" id="Hri-nn-BxT"/>
                         <segue destination="LL4-JA-eic" kind="show" identifier="showImage" id="zAO-6w-AbW"/>
@@ -439,6 +445,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eus-iY-KHI"/>
+        <segue reference="zAO-6w-AbW"/>
     </inferredMetricsTieBreakers>
 </document>

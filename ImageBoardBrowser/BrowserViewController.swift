@@ -17,13 +17,25 @@ class BrowserViewController: UIViewController {
     let itemsPerRow = 2
     
     var pagesLoaded = 1
+    
+    @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
+        pagesLoaded = 1
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        ImageDownloader.downloadImages(withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
+            self.imageInfoList = imageInfoList
+            self.pagesLoaded = self.pagesLoaded + 1
+            self.imageCollectionView.reloadData()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        })
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
