@@ -43,15 +43,19 @@ class SearchViewController: UIViewController {
         self.navigationItem.titleView = searchBar
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "showImageFromSearch" {
+            let singleImageViewController = segue.destination as! SingleImageViewController
+            singleImageViewController.imageInfo = sender as! ImageInfo
+        }
     }
-    */
+    
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         searchBar.resignFirstResponder()
@@ -110,5 +114,9 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         if indexPath.row == imageInfoList.count - 1 {
             loadMoreData()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showImageFromSearch", sender: imageInfoList[indexPath.row])
     }
 }

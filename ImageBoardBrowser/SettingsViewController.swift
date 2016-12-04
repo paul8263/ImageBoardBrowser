@@ -16,14 +16,12 @@ class SettingsViewController: UITableViewController {
     let sdImageCache = SDImageCache.shared()!
     let standardUserDefaults = UserDefaults.standard
     
-    var isSafeModeEnabled = true
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.safeModeSwitch.isOn = isSafeModeEnabled
+        self.safeModeSwitch.isOn = standardUserDefaults.value(forKey: "safeMode") as? Bool ?? true
         self.safeModeSwitch.addTarget(self, action: #selector(safeModeSwitchValueChanged(sender:)), for: UIControlEvents.valueChanged)
         self.tableView.tableFooterView = UIView()
     }
@@ -40,10 +38,9 @@ class SettingsViewController: UITableViewController {
     }
     
     func safeModeSwitchValueChanged(sender: UISwitch) {
-        print(sender.isOn)
         standardUserDefaults.set(sender.isOn, forKey: "safeMode")
+        print(standardUserDefaults.value(forKey: "safeMode") as! Bool)
     }
-    
 
     /*
     // MARK: - Navigation

@@ -114,7 +114,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PM4-SE-0Fl">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="607"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" translatesAutoresizingMaskIntoConstraints="NO" id="qpu-GX-MAn">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="5" translatesAutoresizingMaskIntoConstraints="NO" id="qpu-GX-MAn">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="607"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uPD-4x-kHa">
@@ -359,7 +359,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="215" height="229"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BVp-oj-nDV">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BVp-oj-nDV">
                                                     <rect key="frame" x="0.0" y="0.0" width="215" height="229"/>
                                                 </imageView>
                                             </subviews>
@@ -392,6 +392,7 @@
                     <navigationItem key="navigationItem" id="2LL-be-sps"/>
                     <connections>
                         <outlet property="imageCollectionView" destination="15Z-vb-Mpg" id="kn5-N2-191"/>
+                        <segue destination="LL4-JA-eic" kind="show" identifier="showImageFromSearch" id="eus-iY-KHI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JAO-TC-FfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -437,4 +438,7 @@
             <point key="canvasLocation" x="1415.2" y="902.69865067466276"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="eus-iY-KHI"/>
+    </inferredMetricsTieBreakers>
 </document>
