@@ -166,13 +166,12 @@
                     <navigationItem key="navigationItem" id="hjO-Ru-oqd">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="g0X-aD-4a7">
                             <connections>
-                                <action selector="rightBarButtonItemToched:" destination="LL4-JA-eic" id="Glo-Rg-PSb"/>
+                                <action selector="rightBarButtonItemTouched:" destination="LL4-JA-eic" id="nZJ-hG-Xhs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="uPD-4x-kHa" id="h6H-Ty-aHD"/>
-                        <outlet property="rightBarButtonItem" destination="g0X-aD-4a7" id="5pM-kG-7po"/>
                         <outlet property="scrollView" destination="qpu-GX-MAn" id="exO-VT-ptJ"/>
                         <outlet property="tagsLabel" destination="cg1-Dl-p2m" id="qHu-0r-gL3"/>
                     </connections>

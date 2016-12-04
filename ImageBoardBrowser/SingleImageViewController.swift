@@ -18,8 +18,8 @@ class SingleImageViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    @IBAction func rightBarButtonItemToched(_ sender: UIBarButtonItem) {
-        
+    @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
+        UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil, nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
