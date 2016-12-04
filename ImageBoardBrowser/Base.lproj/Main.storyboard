@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Favourate-->
         <scene sceneID="EFX-QQ-DE2">
             <objects>
-                <viewController id="kz8-ez-mXS" sceneMemberID="viewController">
+                <viewController id="kz8-ez-mXS" customClass="FavourateViewController" customModule="ImageBoardBrowser" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NwA-Wq-0NM"/>
                         <viewControllerLayoutGuide type="bottom" id="0Qx-lh-lLJ"/>
@@ -22,13 +22,63 @@
                     <view key="view" contentMode="scaleToFill" id="GHR-T5-fXH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="B9e-hv-vTp">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RIf-A9-BqL">
+                                    <size key="itemSize" width="213" height="213"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="favourateImageCollectionViewCell" id="5j4-9H-Ot0" customClass="FavourateImageCollectionViewCell" customModule="ImageBoardBrowser" customModuleProvider="target">
+                                        <rect key="frame" x="100.66666666666667" y="0.0" width="213" height="213"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="213" height="213"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rf4-UZ-s98">
+                                                    <rect key="frame" x="0.0" y="0.0" width="213" height="213"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="rf4-UZ-s98" secondAttribute="bottom" id="Bvm-a1-oKf"/>
+                                            <constraint firstAttribute="trailing" secondItem="rf4-UZ-s98" secondAttribute="trailing" id="FUy-Va-n1f"/>
+                                            <constraint firstItem="rf4-UZ-s98" firstAttribute="top" secondItem="5j4-9H-Ot0" secondAttribute="top" id="qfL-bT-HGj"/>
+                                            <constraint firstItem="rf4-UZ-s98" firstAttribute="leading" secondItem="5j4-9H-Ot0" secondAttribute="leading" id="x97-pV-djY"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="rf4-UZ-s98" id="eNx-3m-7hk"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="kz8-ez-mXS" id="znj-5k-Bm2"/>
+                                    <outlet property="delegate" destination="kz8-ez-mXS" id="jtZ-qc-aMK"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="B9e-hv-vTp" firstAttribute="leading" secondItem="GHR-T5-fXH" secondAttribute="leading" id="O1g-qZ-nc0"/>
+                            <constraint firstAttribute="trailing" secondItem="B9e-hv-vTp" secondAttribute="trailing" id="Uoy-6X-UV1"/>
+                            <constraint firstItem="0Qx-lh-lLJ" firstAttribute="top" secondItem="B9e-hv-vTp" secondAttribute="bottom" id="he7-No-bwE"/>
+                            <constraint firstItem="B9e-hv-vTp" firstAttribute="top" secondItem="GHR-T5-fXH" secondAttribute="top" id="l9i-aR-88q"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="mEH-Gu-NeR"/>
+                    <navigationItem key="navigationItem" title="Favourate" id="mEH-Gu-NeR"/>
+                    <connections>
+                        <outlet property="imageCollectionView" destination="B9e-hv-vTp" id="CjS-Mk-JGJ"/>
+                        <segue destination="LL4-JA-eic" kind="show" identifier="showImageFromFavourate" id="geY-OM-uWh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WZ6-k6-qFh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1415.2" y="199.25037481259372"/>
+            <point key="canvasLocation" x="1414.4927536231885" y="198.91304347826087"/>
         </scene>
         <!--Browse Image-->
         <scene sceneID="vog-kK-7j5">
@@ -129,11 +179,16 @@
                                                     <constraint firstAttribute="width" secondItem="uPD-4x-kHa" secondAttribute="height" multiplier="16:10" id="KBB-bn-d4a"/>
                                                 </constraints>
                                             </imageView>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="I7j-70-2ab">
+                                                <rect key="frame" x="197" y="229" width="20" height="20"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="uPD-4x-kHa" secondAttribute="bottom" constant="109" id="2Nh-No-p4l"/>
+                                            <constraint firstItem="I7j-70-2ab" firstAttribute="centerY" secondItem="qpu-GX-MAn" secondAttribute="centerY" id="8hO-1h-Sis"/>
                                             <constraint firstItem="uPD-4x-kHa" firstAttribute="top" secondItem="qpu-GX-MAn" secondAttribute="top" constant="100" id="J6Z-fE-3lQ"/>
                                             <constraint firstItem="uPD-4x-kHa" firstAttribute="centerX" secondItem="qpu-GX-MAn" secondAttribute="centerX" id="gXs-ot-ahD"/>
+                                            <constraint firstItem="I7j-70-2ab" firstAttribute="centerX" secondItem="qpu-GX-MAn" secondAttribute="centerX" id="gYt-yZ-Etj"/>
                                             <constraint firstItem="uPD-4x-kHa" firstAttribute="leading" secondItem="qpu-GX-MAn" secondAttribute="leading" id="xSD-R2-tAv"/>
                                             <constraint firstAttribute="trailing" secondItem="uPD-4x-kHa" secondAttribute="trailing" id="yzO-6m-utA"/>
                                         </constraints>
@@ -177,6 +232,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="imageLoadingIndicator" destination="I7j-70-2ab" id="14y-Zj-pNV"/>
                         <outlet property="imageView" destination="uPD-4x-kHa" id="h6H-Ty-aHD"/>
                         <outlet property="scrollView" destination="qpu-GX-MAn" id="exO-VT-ptJ"/>
                         <outlet property="tagsLabel" destination="cg1-Dl-p2m" id="qHu-0r-gL3"/>
@@ -225,11 +281,11 @@
             </objects>
             <point key="canvasLocation" x="476" y="-455.62218890554726"/>
         </scene>
-        <!--Favorate-->
+        <!--Favourate-->
         <scene sceneID="03g-fs-UaF">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pw4-Nr-7QS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorate" id="ur3-KQ-O0l"/>
+                    <tabBarItem key="tabBarItem" title="Favourate" id="ur3-KQ-O0l"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6C8-f4-QkO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -445,6 +501,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zAO-6w-AbW"/>
+        <segue reference="geY-OM-uWh"/>
     </inferredMetricsTieBreakers>
 </document>

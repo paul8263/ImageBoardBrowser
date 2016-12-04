@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ImageInfo {
+class ImageInfo: NSObject, NSCoding {
     var id: Int = 0
     var tags: String = ""
     var createdAt: Int = 0
@@ -74,4 +74,71 @@ class ImageInfo {
         self.isHeld = fromDict["is_held"] as! Bool
         self.flagDetail = fromDict["flag_detail"] as? String
     }
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.id, forKey: "id")
+        aCoder.encode(self.tags, forKey: "tags")
+        aCoder.encode(self.createdAt, forKey: "createdAt")
+        aCoder.encode(self.creatorId, forKey: "creatorId")
+        aCoder.encode(self.author, forKey: "author")
+        aCoder.encode(self.change, forKey: "change")
+        aCoder.encode(self.source, forKey: "source")
+        aCoder.encode(self.isShownInIndex, forKey: "isShownInIndex")
+        aCoder.encode(self.previewUrl, forKey: "previewUrl")
+        aCoder.encode(self.previewWidth, forKey: "previewWidth")
+        aCoder.encode(self.previewHeight, forKey: "previewHeight")
+        aCoder.encode(self.actualPreviewWidth, forKey: "actualPreviewWidth")
+        aCoder.encode(self.actualPreviewHeight, forKey: "actualPreviewHeight")
+        aCoder.encode(self.sampleUrl, forKey: "sampleUrl")
+        aCoder.encode(self.sampleWidth, forKey: "sampleWidth")
+        aCoder.encode(self.sampleHeight, forKey: "sampleHeight")
+        aCoder.encode(self.sampleFileSize, forKey: "sampleFileSize")
+        aCoder.encode(self.jpegUrl, forKey: "jpegUrl")
+        aCoder.encode(self.jpegWidth, forKey: "jpegWidth")
+        aCoder.encode(self.jpegHeight, forKey: "jpegHeight")
+        aCoder.encode(self.jpegFileSize, forKey: "jpegFileSize")
+        aCoder.encode(self.rating, forKey: "rating")
+        aCoder.encode(self.hasChildren, forKey: "hasChildren")
+        aCoder.encode(self.parentId, forKey: "parentId")
+        aCoder.encode(self.status, forKey: "status")
+        aCoder.encode(self.width, forKey: "width")
+        aCoder.encode(self.height, forKey: "height")
+        aCoder.encode(self.isHeld, forKey: "isHeld")
+        aCoder.encode(self.flagDetail, forKey: "flagDetail")
+    }
+    required init?(coder aDecoder: NSCoder) {
+        self.id = aDecoder.decodeInteger(forKey: "id")
+        self.tags = aDecoder.decodeObject(forKey: "tags") as! String
+        self.createdAt = aDecoder.decodeInteger(forKey: "createdAt")
+        self.creatorId = aDecoder.decodeInteger(forKey: "creatorId")
+        self.author = aDecoder.decodeObject(forKey: "author") as! String
+        self.change = aDecoder.decodeInteger(forKey: "change")
+        self.source = aDecoder.decodeObject(forKey: "source") as! String
+        self.isShownInIndex = aDecoder.decodeBool(forKey: "isShownInIndex")
+        self.previewUrl = aDecoder.decodeObject(forKey: "previewUrl") as! String
+        self.previewWidth = aDecoder.decodeInteger(forKey: "previewWidth")
+        self.previewHeight = aDecoder.decodeInteger(forKey: "previewHeight")
+        self.actualPreviewWidth = aDecoder.decodeInteger(forKey: "actualPreviewWidth")
+        self.actualPreviewHeight = aDecoder.decodeInteger(forKey: "actualPreviewHeight")
+        self.sampleUrl = aDecoder.decodeObject(forKey: "sampleUrl") as! String
+        self.sampleWidth = aDecoder.decodeInteger(forKey: "sampleWidth")
+        self.sampleHeight = aDecoder.decodeInteger(forKey: "sampleHeight")
+        self.sampleFileSize = aDecoder.decodeInteger(forKey: "sampleFileSize")
+        self.jpegUrl = aDecoder.decodeObject(forKey: "jpegUrl") as! String
+        self.jpegWidth = aDecoder.decodeInteger(forKey: "jpegWidth")
+        self.jpegHeight = aDecoder.decodeInteger(forKey: "jpegHeight")
+        self.jpegFileSize = aDecoder.decodeInteger(forKey: "jpegFileSize")
+        self.rating = aDecoder.decodeObject(forKey: "rating") as! String
+        self.hasChildren = aDecoder.decodeBool(forKey: "hasChildren")
+        if aDecoder.containsValue(forKey: "parentId") {
+            self.parentId = aDecoder.decodeObject(forKey: "parentId") as? Int
+        }
+        self.status = aDecoder.decodeObject(forKey: "status") as! String
+        self.width = aDecoder.decodeInteger(forKey: "width")
+        self.height = aDecoder.decodeInteger(forKey: "height")
+        self.isHeld = aDecoder.decodeBool(forKey: "isHeld")
+        if aDecoder.containsValue(forKey: "flagDetail") {
+            self.flagDetail = aDecoder.decodeObject(forKey: "flagDetail") as? String
+        }
+    }
+    
 }

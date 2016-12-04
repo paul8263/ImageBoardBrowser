@@ -28,6 +28,10 @@ class SettingsViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUserCacheLabel()
+    }
+    
+    func setUserCacheLabel() {
         let cacheSize = sdImageCache.getSize() / 1000000
         self.usedCacheLabel.text = "Used cache: \(cacheSize) MB"
     }
@@ -51,4 +55,19 @@ class SettingsViewController: UITableViewController {
     }
     */
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 1 {
+            let alertController = UIAlertController(title: "Delete Cache?", message: nil, preferredStyle: .actionSheet)
+            let okAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.destructive, handler: { (action) in
+                self.sdImageCache.clearDisk()
+                self.setUserCacheLabel()
+            })
+            let cancelAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+            alertController.addAction(okAlertAction)
+            alertController.addAction(cancelAlertAction)
+            present(alertController, animated: true, completion: nil)
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }
