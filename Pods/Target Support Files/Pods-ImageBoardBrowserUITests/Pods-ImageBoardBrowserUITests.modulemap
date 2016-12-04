@@ -1,0 +1,6 @@
+framework module Pods_ImageBoardBrowserUITests {
+  umbrella header "Pods-ImageBoardBrowserUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
