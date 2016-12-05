@@ -21,8 +21,25 @@ class SingleImageViewController: UIViewController {
     
     @IBOutlet weak var imageLoadingIndicator: UIActivityIndicatorView!
     @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
-        UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil, nil)
+        UIImageWriteToSavedPhotosAlbum(self.imageView.image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        
     }
+    
+    func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        
+        if let _ = error {
+            let failureAlertController = UIAlertController(title: nil, message: "Image failed to save", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+            failureAlertController.addAction(okAction)
+            self.present(failureAlertController, animated: true, completion: nil)
+        } else {
+            let successAlertController = UIAlertController(title: nil, message: "Image has been saved", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+            successAlertController.addAction(okAction)
+            self.present(successAlertController, animated: true, completion: nil)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,7 +64,6 @@ class SingleImageViewController: UIViewController {
     }
     
     func createAlertController() -> UIAlertController {
-        print(FavourateStorageHelper.isExisting(imageInfo: imageInfo))
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         let favourateAction: UIAlertAction!
         if FavourateStorageHelper.isExisting(imageInfo: imageInfo) {
@@ -61,7 +77,7 @@ class SingleImageViewController: UIViewController {
         }
         
         let saveToAlbumAction = UIAlertAction(title: "Save to Album", style: UIAlertActionStyle.default, handler: { (action) in
-            UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil, nil)
+            UIImageWriteToSavedPhotosAlbum(self.imageView.image!, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
         })
         let requestLargerImageAction = UIAlertAction(title: "Request Larger Image", style: UIAlertActionStyle.default, handler: { (action) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -79,8 +95,8 @@ class SingleImageViewController: UIViewController {
         return alertController
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.tagsLabel.text = imageInfo.tags
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         imageLoadingIndicator.startAnimating()

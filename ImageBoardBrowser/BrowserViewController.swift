@@ -26,6 +26,7 @@ class BrowserViewController: UIViewController {
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
         })
     }
     
@@ -45,7 +46,9 @@ class BrowserViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        loadMoreData()
+        if self.imageInfoList.count == 0 {
+            loadMoreData()
+        }        
     }
     
     func loadMoreData() {

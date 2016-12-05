@@ -65,7 +65,9 @@ class SearchViewController: UIViewController {
         pagesLoaded = 1
         ImageDownloader.downloadImages(withTags: self.searchedTags, withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
             self.imageInfoList = imageInfoList
+            self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
+            self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
         })
     }
     func loadMoreData() {

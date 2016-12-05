@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2B7C133E1DF3A256008945BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C133D1DF3A256008945BC /* AppDelegate.swift */; };
 		2B7C13431DF3A256008945BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B7C13411DF3A256008945BC /* Main.storyboard */; };
-		2B7C13451DF3A256008945BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B7C13441DF3A256008945BC /* Assets.xcassets */; };
 		2B7C13481DF3A256008945BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B7C13461DF3A256008945BC /* LaunchScreen.storyboard */; };
 		2B7C13531DF3A256008945BC /* ImageBoardBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C13521DF3A256008945BC /* ImageBoardBrowserTests.swift */; };
 		2B7C135E1DF3A256008945BC /* ImageBoardBrowserUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C135D1DF3A256008945BC /* ImageBoardBrowserUITests.swift */; };
@@ -24,6 +23,7 @@
 		2B7C13811DF44724008945BC /* FavourateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C13801DF44724008945BC /* FavourateViewController.swift */; };
 		2B7C13831DF44C70008945BC /* FavourateImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C13821DF44C70008945BC /* FavourateImageCollectionViewCell.swift */; };
 		2B7C13851DF45456008945BC /* FavourateStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C13841DF45456008945BC /* FavourateStorageHelper.swift */; };
+		2B7C13871DF46C06008945BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B7C13861DF46C06008945BC /* Assets.xcassets */; };
 		58C2CE548B63AFB44E800333 /* Pods_ImageBoardBrowserUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA2B90F576EDB68ADE9D418 /* Pods_ImageBoardBrowserUITests.framework */; };
 		692950D2FEB13F5B97482D64 /* Pods_ImageBoardBrowserTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1AE7AFBFAC01910F96C941 /* Pods_ImageBoardBrowserTests.framework */; };
 		C380540B2A1F0FEA6C868076 /* Pods_ImageBoardBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF835B53457034CBA7BBBED /* Pods_ImageBoardBrowser.framework */; };
@@ -50,7 +50,6 @@
 		2B7C133A1DF3A256008945BC /* ImageBoardBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageBoardBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B7C133D1DF3A256008945BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B7C13421DF3A256008945BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2B7C13441DF3A256008945BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B7C13471DF3A256008945BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B7C13491DF3A256008945BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B7C134E1DF3A256008945BC /* ImageBoardBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageBoardBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +69,7 @@
 		2B7C13801DF44724008945BC /* FavourateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavourateViewController.swift; sourceTree = "<group>"; };
 		2B7C13821DF44C70008945BC /* FavourateImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavourateImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B7C13841DF45456008945BC /* FavourateStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavourateStorageHelper.swift; sourceTree = "<group>"; };
+		2B7C13861DF46C06008945BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
 		52AB080B54F8AF082DED3B58 /* Pods-ImageBoardBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageBoardBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageBoardBrowser/Pods-ImageBoardBrowser.release.xcconfig"; sourceTree = "<group>"; };
 		5445406C9FF578CC1F558386 /* Pods-ImageBoardBrowserTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageBoardBrowserTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageBoardBrowserTests/Pods-ImageBoardBrowserTests.release.xcconfig"; sourceTree = "<group>"; };
 		60A9DC9003283A8C82C19E95 /* Pods-ImageBoardBrowserTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageBoardBrowserTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageBoardBrowserTests/Pods-ImageBoardBrowserTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -196,8 +196,8 @@
 		2B7C13701DF3A53C008945BC /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				2B7C13861DF46C06008945BC /* Assets.xcassets */,
 				2B7C133D1DF3A256008945BC /* AppDelegate.swift */,
-				2B7C13441DF3A256008945BC /* Assets.xcassets */,
 				2B7C13491DF3A256008945BC /* Info.plist */,
 			);
 			name = Others;
@@ -355,7 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B7C13481DF3A256008945BC /* LaunchScreen.storyboard in Resources */,
-				2B7C13451DF3A256008945BC /* Assets.xcassets in Resources */,
+				2B7C13871DF46C06008945BC /* Assets.xcassets in Resources */,
 				2B7C13431DF3A256008945BC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -690,6 +690,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = paultech.ImageBoardBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -705,6 +706,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = paultech.ImageBoardBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
