@@ -24,6 +24,7 @@
 		2B7C13831DF44C70008945BC /* FavourateImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C13821DF44C70008945BC /* FavourateImageCollectionViewCell.swift */; };
 		2B7C13851DF45456008945BC /* FavourateStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C13841DF45456008945BC /* FavourateStorageHelper.swift */; };
 		2B7C13871DF46C06008945BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B7C13861DF46C06008945BC /* Assets.xcassets */; };
+		2BE091381DF59ECE003D01FD /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE091371DF59ECE003D01FD /* AboutViewController.swift */; };
 		58C2CE548B63AFB44E800333 /* Pods_ImageBoardBrowserUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA2B90F576EDB68ADE9D418 /* Pods_ImageBoardBrowserUITests.framework */; };
 		692950D2FEB13F5B97482D64 /* Pods_ImageBoardBrowserTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1AE7AFBFAC01910F96C941 /* Pods_ImageBoardBrowserTests.framework */; };
 		C380540B2A1F0FEA6C868076 /* Pods_ImageBoardBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF835B53457034CBA7BBBED /* Pods_ImageBoardBrowser.framework */; };
@@ -70,6 +71,7 @@
 		2B7C13821DF44C70008945BC /* FavourateImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavourateImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B7C13841DF45456008945BC /* FavourateStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavourateStorageHelper.swift; sourceTree = "<group>"; };
 		2B7C13861DF46C06008945BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
+		2BE091371DF59ECE003D01FD /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		52AB080B54F8AF082DED3B58 /* Pods-ImageBoardBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageBoardBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageBoardBrowser/Pods-ImageBoardBrowser.release.xcconfig"; sourceTree = "<group>"; };
 		5445406C9FF578CC1F558386 /* Pods-ImageBoardBrowserTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageBoardBrowserTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageBoardBrowserTests/Pods-ImageBoardBrowserTests.release.xcconfig"; sourceTree = "<group>"; };
 		60A9DC9003283A8C82C19E95 /* Pods-ImageBoardBrowserTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageBoardBrowserTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageBoardBrowserTests/Pods-ImageBoardBrowserTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				2B7C137E1DF3F665008945BC /* SearchImageCollectionCollectionViewCell.swift */,
 				2B7C13801DF44724008945BC /* FavourateViewController.swift */,
 				2B7C13821DF44C70008945BC /* FavourateImageCollectionViewCell.swift */,
+				2BE091371DF59ECE003D01FD /* AboutViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 				2B7C13811DF44724008945BC /* FavourateViewController.swift in Sources */,
 				2B7C13751DF3A5BA008945BC /* ImageDownloader.swift in Sources */,
 				2B7C13791DF3D29C008945BC /* SingleImageViewController.swift in Sources */,
+				2BE091381DF59ECE003D01FD /* AboutViewController.swift in Sources */,
 				2B7C136C1DF3A512008945BC /* BrowserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -685,7 +689,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V537LP73QG;
 				INFOPLIST_FILE = ImageBoardBrowser/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = paultech.ImageBoardBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -701,7 +705,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V537LP73QG;
 				INFOPLIST_FILE = ImageBoardBrowser/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = paultech.ImageBoardBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";

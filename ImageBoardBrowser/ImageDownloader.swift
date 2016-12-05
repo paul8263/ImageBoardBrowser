@@ -39,13 +39,12 @@ class ImageDownloader {
     
     static func convertResponseObjectToImageInfoList(responseObject: Any?) -> [ImageInfo] {
         var imageInfoList: [ImageInfo] = []
-        
-        let responseArray = responseObject as! Array<[String: Any]>
-        for item in responseArray {
-            let imageInfo = ImageInfo(fromDict: item)
-            imageInfoList.append(imageInfo)
+        if let responseArray = responseObject as? Array<[String: Any]> {
+            for item in responseArray {
+                let imageInfo = ImageInfo(fromDict: item)
+                imageInfoList.append(imageInfo)
+            }
         }
-        
         return imageInfoList
     }
     

@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -39,7 +40,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="213" height="213"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rf4-UZ-s98">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rf4-UZ-s98">
                                                     <rect key="frame" x="0.0" y="0.0" width="213" height="213"/>
                                                 </imageView>
                                             </subviews>
@@ -314,11 +315,11 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mah-ro-v2q" id="MhR-5n-mS6">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Used Cache:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gfu-EH-opB">
-                                                    <rect key="frame" x="15" y="0.0" width="384" height="43.666666666666664"/>
+                                                    <rect key="frame" x="15" y="0.0" width="384" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -331,11 +332,11 @@
                                         <rect key="frame" x="0.0" y="72" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WdD-3m-hD4" id="TI8-4W-qsM">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Clear Cache" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6XH-Le-T8g">
-                                                    <rect key="frame" x="15" y="0.0" width="384" height="43.666666666666664"/>
+                                                    <rect key="frame" x="15" y="0.0" width="384" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -373,6 +374,26 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="gtC-WM-5cP" style="IBUITableViewCellStyleDefault" id="GuX-ia-6BI">
+                                        <rect key="frame" x="0.0" y="188" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GuX-ia-6BI" id="R3S-l0-5En">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="About" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gtC-WM-5cP">
+                                                    <rect key="frame" x="15" y="0.0" width="384" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="xBb-0d-Uxh" kind="presentation" id="6kH-b7-iJW"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -390,6 +411,65 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gd1-kV-FWp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="463.19999999999999" y="902.69865067466276"/>
+        </scene>
+        <!--About View Controller-->
+        <scene sceneID="Jdf-5s-obE">
+            <objects>
+                <viewController id="xBb-0d-Uxh" customClass="AboutViewController" customModule="ImageBoardBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VtU-Rl-P21"/>
+                        <viewControllerLayoutGuide type="bottom" id="mJY-Q5-Vil"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZUl-mi-eIr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="About" translatesAutoresizingMaskIntoConstraints="NO" id="C4K-mf-VG5">
+                                <rect key="frame" x="47" y="95" width="320" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="EpK-pI-ULt"/>
+                                    <constraint firstAttribute="height" constant="240" id="RPo-9Q-34y"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image Board Browser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idC-1c-Imq">
+                                <rect key="frame" x="85" y="375" width="245" height="29"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright ® 2016 Paul Zhang" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sfM-Es-Xhl">
+                                <rect key="frame" x="107" y="678" width="200" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Delete" translatesAutoresizingMaskIntoConstraints="NO" id="dL6-J5-rpa">
+                                <rect key="frame" x="357" y="25" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="X3d-Kh-C1X"/>
+                                    <constraint firstAttribute="width" constant="32" id="rji-sL-o2x"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.63905022905759168" green="0.29670807427269758" blue="0.43054985914633659" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="idC-1c-Imq" firstAttribute="top" secondItem="C4K-mf-VG5" secondAttribute="bottom" constant="40" id="4qk-yT-LK6"/>
+                            <constraint firstItem="mJY-Q5-Vil" firstAttribute="top" secondItem="sfM-Es-Xhl" secondAttribute="bottom" constant="40" id="JGd-ja-yRy"/>
+                            <constraint firstItem="dL6-J5-rpa" firstAttribute="top" secondItem="VtU-Rl-P21" secondAttribute="bottom" constant="5" id="JTc-PT-2gc"/>
+                            <constraint firstItem="sfM-Es-Xhl" firstAttribute="centerX" secondItem="ZUl-mi-eIr" secondAttribute="centerX" id="LS3-Fr-pPy"/>
+                            <constraint firstAttribute="trailing" secondItem="dL6-J5-rpa" secondAttribute="trailing" constant="25" id="Od6-2z-SeA"/>
+                            <constraint firstItem="C4K-mf-VG5" firstAttribute="top" secondItem="VtU-Rl-P21" secondAttribute="bottom" constant="75" id="Yg6-B5-pPY"/>
+                            <constraint firstItem="C4K-mf-VG5" firstAttribute="centerX" secondItem="idC-1c-Imq" secondAttribute="centerX" id="ioF-YJ-j62"/>
+                            <constraint firstItem="idC-1c-Imq" firstAttribute="centerX" secondItem="ZUl-mi-eIr" secondAttribute="centerX" id="l7h-Id-HS5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="aboutImageView" destination="C4K-mf-VG5" id="16f-Kq-n9w"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d5X-Sd-ySM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="475" y="1635"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="6v1-3Z-ZvV">
@@ -500,6 +580,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="About" width="666" height="470"/>
+        <image name="Delete" width="25" height="25"/>
         <image name="Money" width="25" height="25"/>
         <image name="Search" width="25" height="25"/>
         <image name="Settings" width="25" height="25"/>

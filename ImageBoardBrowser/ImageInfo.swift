@@ -12,7 +12,7 @@ class ImageInfo: NSObject, NSCoding {
     var id: Int = 0
     var tags: String = ""
     var createdAt: Int = 0
-    var creatorId: Int = 0
+    var creatorId: Int?
     var author: String = ""
     var change: Int = 0
     var source: String = ""
@@ -47,7 +47,7 @@ class ImageInfo: NSObject, NSCoding {
         self.id = fromDict["id"] as! Int
         self.tags = fromDict["tags"] as! String
         self.createdAt = fromDict["created_at"] as! Int
-        self.creatorId = fromDict["creator_id"] as! Int
+        self.creatorId = fromDict["creator_id"] as? Int
         self.author = fromDict["author"] as! String
         self.change = fromDict["change"] as! Int
         self.source = fromDict["source"] as! String
@@ -109,7 +109,9 @@ class ImageInfo: NSObject, NSCoding {
         self.id = aDecoder.decodeInteger(forKey: "id")
         self.tags = aDecoder.decodeObject(forKey: "tags") as! String
         self.createdAt = aDecoder.decodeInteger(forKey: "createdAt")
-        self.creatorId = aDecoder.decodeInteger(forKey: "creatorId")
+        if aDecoder.containsValue(forKey: "creatorId") {
+            self.creatorId = aDecoder.decodeObject(forKey: "creatorId") as? Int
+        }
         self.author = aDecoder.decodeObject(forKey: "author") as! String
         self.change = aDecoder.decodeInteger(forKey: "change")
         self.source = aDecoder.decodeObject(forKey: "source") as! String
