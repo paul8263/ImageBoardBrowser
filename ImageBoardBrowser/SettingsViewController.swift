@@ -31,8 +31,8 @@ class SettingsViewController: UITableViewController {
     }
     
     func setUserCacheLabel() {
-        let cacheSize = sdImageCache.getSize() / 1000000
-        self.usedCacheLabel.text = "Used cache: \(cacheSize) MB"
+        let cacheSize = Double(sdImageCache.getSize()) / 1000000
+        self.usedCacheLabel.text = String.init(format: "Used Cache: %.2f MB", cacheSize)
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,7 +41,20 @@ class SettingsViewController: UITableViewController {
     }
     
     func safeModeSwitchValueChanged(sender: UISwitch) {
-        standardUserDefaults.set(sender.isOn, forKey: "safeMode")
+        if !sender.isOn {
+            let alertController = UIAlertController(title: "Attention", message: "Do you really want to switch off Safe Mode?", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.destructive, handler: { (action) in
+                self.standardUserDefaults.set(sender.isOn, forKey: "safeMode")
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) in
+                sender.setOn(true, animated: true)
+            })
+            alertController.addAction(okAction)
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true, completion: nil)
+        } else {
+            self.standardUserDefaults.set(sender.isOn, forKey: "safeMode")
+        }
     }
 
     /*

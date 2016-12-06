@@ -28,6 +28,7 @@ class SearchViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setUpSearchBar()
+        self.navigationController?.hidesBarsOnSwipe = true
     }
 
     override func didReceiveMemoryWarning() {
