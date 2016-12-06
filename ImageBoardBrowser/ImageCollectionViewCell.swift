@@ -12,7 +12,6 @@ import SDWebImage
 class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
-
     override func awakeFromNib() {
         self.imageView.clipsToBounds = true
         self.imageView.layer.cornerRadius = 3

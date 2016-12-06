@@ -61,14 +61,28 @@ class SearchViewController: UIViewController {
         searchBar.resignFirstResponder()
     }
     
+    func showNetworkErrorAlertController() {
+        let alertController = UIAlertController(title: "No Network", message: "Please connect your device to network", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     func performSearch() {
         pagesLoaded = 1
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         ImageDownloader.downloadImages(withTags: self.searchedTags, withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
             self.imageInfoList = imageInfoList
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if self.imageInfoList.count != 0 {
                 self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
+            }
+        }, failureHandler: {(error) in
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.showNetworkErrorAlertController()
             }
         })
     }
@@ -79,6 +93,11 @@ class SearchViewController: UIViewController {
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }, failureHandler: {(error) in
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.showNetworkErrorAlertController()
+            }
         })
     }
 }

@@ -9,6 +9,7 @@
 import Foundation
 
 class ImageInfo: NSObject, NSCoding {
+    
     var id: Int = 0
     var tags: String = ""
     var createdAt: Int = 0
@@ -74,6 +75,7 @@ class ImageInfo: NSObject, NSCoding {
         self.isHeld = fromDict["is_held"] as! Bool
         self.flagDetail = fromDict["flag_detail"] as? String
     }
+    
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.id, forKey: "id")
         aCoder.encode(self.tags, forKey: "tags")
@@ -105,6 +107,7 @@ class ImageInfo: NSObject, NSCoding {
         aCoder.encode(self.isHeld, forKey: "isHeld")
         aCoder.encode(self.flagDetail, forKey: "flagDetail")
     }
+    
     required init?(coder aDecoder: NSCoder) {
         self.id = aDecoder.decodeInteger(forKey: "id")
         self.tags = aDecoder.decodeObject(forKey: "tags") as! String
@@ -142,5 +145,4 @@ class ImageInfo: NSObject, NSCoding {
             self.flagDetail = aDecoder.decodeObject(forKey: "flagDetail") as? String
         }
     }
-    
 }

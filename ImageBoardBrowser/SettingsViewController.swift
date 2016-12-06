@@ -16,7 +16,6 @@ class SettingsViewController: UITableViewController {
     let sdImageCache = SDImageCache.shared()!
     let standardUserDefaults = UserDefaults.standard
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
 

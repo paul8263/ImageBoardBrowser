@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 class BrowserViewController: UIViewController {
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -20,23 +21,36 @@ class BrowserViewController: UIViewController {
     
     @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
         pagesLoaded = 1
+        
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         ImageDownloader.downloadImages(withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
             self.imageInfoList = imageInfoList
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
+            if self.imageInfoList.count != 0 {
+                self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
+            }
+        }, failureHandler: {(error) in
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.showNetworkErrorAlertController()
+            }
         })
+
     }
     
+    func showNetworkErrorAlertController() {
+        let alertController = UIAlertController(title: "No Network", message: "Please connect your device to network", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
     }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -58,11 +72,14 @@ class BrowserViewController: UIViewController {
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }, failureHandler: {(error) in
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.showNetworkErrorAlertController()
+            }            
         })
     }
-    
 
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -74,11 +91,10 @@ class BrowserViewController: UIViewController {
             singleImageViewController.imageInfo = sender as! ImageInfo
         }
     }
-    
-
 }
 
 extension BrowserViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1;
     }

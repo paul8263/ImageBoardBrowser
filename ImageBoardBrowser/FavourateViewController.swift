@@ -37,7 +37,6 @@ class FavourateViewController: UIViewController {
         self.imageCollectionView.reloadData()
     }
     
-
     
     // MARK: - Navigation
 
@@ -51,7 +50,6 @@ class FavourateViewController: UIViewController {
         }
     }
     
-
 }
 
 extension FavourateViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
