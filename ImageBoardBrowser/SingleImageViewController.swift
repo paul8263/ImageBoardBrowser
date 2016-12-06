@@ -105,7 +105,7 @@ class SingleImageViewController: UIViewController {
             self.imageLoadingIndicator.stopAnimating()
         })
         self.alertController = createAlertController()
-        
+        self.navigationController?.hidesBarsOnSwipe = false
     }
 
     override func didReceiveMemoryWarning() {

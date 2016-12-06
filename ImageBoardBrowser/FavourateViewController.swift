@@ -14,13 +14,12 @@ class FavourateViewController: UIViewController {
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
     let spacing = 10
-    let itemsPerRow = 2
+    var itemsPerRow = 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationController?.hidesBarsOnSwipe = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,6 +30,9 @@ class FavourateViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadData()
+        if self.imageInfoList.count != 0 {
+            self.navigationController?.hidesBarsOnSwipe = true
+        }
     }
     
     func loadData() {
@@ -38,6 +40,18 @@ class FavourateViewController: UIViewController {
         self.imageCollectionView.reloadData()
     }
     
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        let rect = UIScreen.main.bounds
+        if rect.height > rect.width {
+            self.itemsPerRow = 3
+        } else {
+            self.itemsPerRow = 2
+        }
+        if let collectionView = self.imageCollectionView {
+            collectionView.reloadData()
+        }
+    }
     
     // MARK: - Navigation
 

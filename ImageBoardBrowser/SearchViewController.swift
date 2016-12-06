@@ -19,7 +19,7 @@ class SearchViewController: UIViewController {
     var searchedTags = ""
     
     let spacing = 10
-    let itemsPerRow = 2
+    var itemsPerRow = 2
     
     var searchBar: UISearchBar = UISearchBar()
 
@@ -28,7 +28,13 @@ class SearchViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setUpSearchBar()
-        self.navigationController?.hidesBarsOnSwipe = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.imageInfoList.count != 0 {
+            self.navigationController?.hidesBarsOnSwipe = true
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -76,9 +82,14 @@ class SearchViewController: UIViewController {
             self.imageInfoList = imageInfoList
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            if self.imageInfoList.count != 0 {
-                self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                if self.imageInfoList.count != 0 {
+                    self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
+                    self.navigationController?.hidesBarsOnSwipe = true
+                } else {
+                    self.navigationController?.hidesBarsOnSwipe = false
+                }
             }
         }, failureHandler: {(error) in
             DispatchQueue.main.async {
@@ -100,6 +111,19 @@ class SearchViewController: UIViewController {
                 self.showNetworkErrorAlertController()
             }
         })
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        let rect = UIScreen.main.bounds
+        if rect.height > rect.width {
+            self.itemsPerRow = 3
+        } else {
+            self.itemsPerRow = 2
+        }
+        if let collectionView = self.imageCollectionView {
+            collectionView.reloadData()
+        }
     }
 }
 

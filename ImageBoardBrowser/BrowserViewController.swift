@@ -15,7 +15,7 @@ class BrowserViewController: UIViewController {
     var imageInfoList: [ImageInfo] = []
     
     let spacing = 10
-    let itemsPerRow = 2
+    var itemsPerRow = 2
     
     var pagesLoaded = 1
     
@@ -50,12 +50,18 @@ class BrowserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.navigationController?.hidesBarsOnSwipe = true
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.imageInfoList.count != 0 {
+            self.navigationController?.hidesBarsOnSwipe = true
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,6 +79,7 @@ class BrowserViewController: UIViewController {
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.navigationController?.hidesBarsOnSwipe = true
         }, failureHandler: {(error) in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -90,6 +97,19 @@ class BrowserViewController: UIViewController {
         if segue.identifier == "showImage" {
             let singleImageViewController = segue.destination as! SingleImageViewController
             singleImageViewController.imageInfo = sender as! ImageInfo
+        }
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        let rect = UIScreen.main.bounds
+        if rect.height > rect.width {
+            self.itemsPerRow = 3
+        } else {
+            self.itemsPerRow = 2
+        }
+        if let collectionView = self.imageCollectionView {
+            collectionView.reloadData()
         }
     }
 }

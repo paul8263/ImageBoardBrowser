@@ -186,7 +186,10 @@
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="uPD-4x-kHa" secondAttribute="bottom" constant="109" id="2Nh-No-p4l"/>
                                             <constraint firstItem="I7j-70-2ab" firstAttribute="centerY" secondItem="qpu-GX-MAn" secondAttribute="centerY" id="8hO-1h-Sis"/>
-                                            <constraint firstItem="uPD-4x-kHa" firstAttribute="top" secondItem="qpu-GX-MAn" secondAttribute="top" constant="100" id="J6Z-fE-3lQ"/>
+                                            <constraint firstItem="uPD-4x-kHa" firstAttribute="top" secondItem="qpu-GX-MAn" secondAttribute="top" constant="100" id="J6Z-fE-3lQ">
+                                                <variation key="heightClass=compact-widthClass=compact" constant="20"/>
+                                                <variation key="heightClass=compact-widthClass=regular" constant="20"/>
+                                            </constraint>
                                             <constraint firstItem="uPD-4x-kHa" firstAttribute="centerX" secondItem="qpu-GX-MAn" secondAttribute="centerX" id="gXs-ot-ahD"/>
                                             <constraint firstItem="I7j-70-2ab" firstAttribute="centerX" secondItem="qpu-GX-MAn" secondAttribute="centerX" id="gYt-yZ-Etj"/>
                                             <constraint firstItem="uPD-4x-kHa" firstAttribute="leading" secondItem="qpu-GX-MAn" secondAttribute="leading" id="xSD-R2-tAv"/>
@@ -425,14 +428,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="About" translatesAutoresizingMaskIntoConstraints="NO" id="C4K-mf-VG5">
-                                <rect key="frame" x="47" y="95" width="320" height="240"/>
+                                <rect key="frame" x="46.666666666666657" y="95" width="320" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="EpK-pI-ULt"/>
                                     <constraint firstAttribute="height" constant="240" id="RPo-9Q-34y"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image Board Browser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idC-1c-Imq">
-                                <rect key="frame" x="85" y="375" width="245" height="29"/>
+                                <rect key="frame" x="84.666666666666686" y="375" width="245" height="29"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
