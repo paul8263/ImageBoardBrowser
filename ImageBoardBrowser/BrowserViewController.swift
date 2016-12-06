@@ -50,6 +50,10 @@ class BrowserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let rect = UIScreen.main.bounds
+        if rect.height < rect.width {
+            self.itemsPerRow = 3
+        }
     }
 
     override func didReceiveMemoryWarning() {
