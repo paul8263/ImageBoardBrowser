@@ -33,6 +33,17 @@ class FavourateViewController: UIViewController {
         if self.imageInfoList.count != 0 {
             self.navigationController?.hidesBarsOnSwipe = true
         }
+        reorderCollectionViewOnRotation()
+    }
+    
+    func reorderCollectionViewOnRotation() {
+        let rect = UIScreen.main.bounds
+        if rect.height > rect.width {
+            self.itemsPerRow = 2
+        } else {
+            self.itemsPerRow = 3
+        }
+        self.imageCollectionView?.reloadData()
     }
     
     func loadData() {
