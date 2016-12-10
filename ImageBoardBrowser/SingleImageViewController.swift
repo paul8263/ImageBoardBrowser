@@ -21,8 +21,8 @@ class SingleImageViewController: UIViewController {
     
     @IBOutlet weak var imageLoadingIndicator: UIActivityIndicatorView!
     @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
-        UIImageWriteToSavedPhotosAlbum(self.imageView.image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-        
+//        UIImageWriteToSavedPhotosAlbum(self.imageView.image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        performSegue(withIdentifier: "showImageInfo", sender: imageInfo)
     }
     
     func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
@@ -115,15 +115,19 @@ class SingleImageViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "showImageInfo" {
+            let imageInfoTableViewController = segue.destination as! ImageInfoTableViewController
+            imageInfoTableViewController.imageInfo = sender as! ImageInfo
+        }
     }
-    */
+    
 
 }
 
