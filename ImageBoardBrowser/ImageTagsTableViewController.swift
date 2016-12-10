@@ -51,6 +51,7 @@ class ImageTagsTableViewController: UITableViewController {
         let tabBarController = self.tabBarController
         
         let navigationController = tabBarController?.viewControllers?[2] as? UINavigationController
+        navigationController?.popToRootViewController(animated: false)
         let searchViewController = navigationController?.topViewController as! SearchViewController
         searchViewController.searchedTags = imageTagArray[indexPath.row]
         searchViewController.searchBar.text = searchViewController.searchedTags

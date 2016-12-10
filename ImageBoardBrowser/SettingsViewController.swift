@@ -12,6 +12,7 @@ import SDWebImage
 class SettingsViewController: UITableViewController {
     @IBOutlet weak var usedCacheLabel: UILabel!
     @IBOutlet weak var safeModeSwitch: UISwitch!
+    @IBOutlet weak var websiteDetailLabel: UILabel!
     
     let sdImageCache = SDImageCache.shared()!
     let standardUserDefaults = UserDefaults.standard
@@ -28,11 +29,22 @@ class SettingsViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUserCacheLabel()
+        setWebsiteDetailLabel()
     }
     
     func setUserCacheLabel() {
         let cacheSize = Double(sdImageCache.getSize()) / 1000000
         self.usedCacheLabel.text = String.init(format: "Used Cache: %.2f MB", cacheSize)
+    }
+    
+    func setWebsiteDetailLabel() {
+        let website: Website = Website(rawValue: SettingsHelper.getWebsite())!
+        switch website {
+        case .Konachan:
+            websiteDetailLabel.text = "Konachan"
+        case .Yande:
+            websiteDetailLabel.text = "Yande"
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,7 +56,7 @@ class SettingsViewController: UITableViewController {
         if !sender.isOn {
             let alertController = UIAlertController(title: "Attention", message: "Do you really want to switch off Safe Mode?", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.destructive, handler: { (action) in
-                self.standardUserDefaults.set(sender.isOn, forKey: "safeMode")
+                SettingsHelper.setSafeMode(isEnabled: sender.isOn)
             })
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) in
                 sender.setOn(true, animated: true)
@@ -53,7 +65,7 @@ class SettingsViewController: UITableViewController {
             alertController.addAction(cancelAction)
             present(alertController, animated: true, completion: nil)
         } else {
-            self.standardUserDefaults.set(sender.isOn, forKey: "safeMode")
+            SettingsHelper.setSafeMode(isEnabled: sender.isOn)
         }
     }
 
