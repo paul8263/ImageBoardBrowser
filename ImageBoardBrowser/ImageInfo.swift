@@ -52,6 +52,10 @@ class ImageInfo: NSObject, NSCoding {
         self.author = fromDict["author"] as! String
         self.change = fromDict["change"] as! Int
         self.source = fromDict["source"] as! String
+        self.score = fromDict["score"] as! Int
+        self.md5 = fromDict["md5"] as! String
+        self.fileSize = fromDict["file_size"] as! Int
+        self.fileUrl = fromDict["file_url"] as! String
         self.isShownInIndex = fromDict["is_shown_in_index"] as! Bool
         self.previewUrl = fromDict["preview_url"] as! String
         self.previewWidth = fromDict["preview_width"] as! Int
@@ -84,6 +88,10 @@ class ImageInfo: NSObject, NSCoding {
         aCoder.encode(self.author, forKey: "author")
         aCoder.encode(self.change, forKey: "change")
         aCoder.encode(self.source, forKey: "source")
+        aCoder.encode(self.score, forKey: "score")
+        aCoder.encode(self.md5, forKey: "md5")
+        aCoder.encode(self.fileSize, forKey: "fileSize")
+        aCoder.encode(self.fileUrl, forKey: "fileUrl")
         aCoder.encode(self.isShownInIndex, forKey: "isShownInIndex")
         aCoder.encode(self.previewUrl, forKey: "previewUrl")
         aCoder.encode(self.previewWidth, forKey: "previewWidth")
@@ -118,6 +126,10 @@ class ImageInfo: NSObject, NSCoding {
         self.author = aDecoder.decodeObject(forKey: "author") as! String
         self.change = aDecoder.decodeInteger(forKey: "change")
         self.source = aDecoder.decodeObject(forKey: "source") as! String
+        self.score = aDecoder.decodeInteger(forKey: "score")
+        self.md5 = aDecoder.decodeObject(forKey: "md5") as! String
+        self.fileSize = aDecoder.decodeInteger(forKey: "fileSize")
+        self.fileUrl = aDecoder.decodeObject(forKey: "fileUrl") as! String
         self.isShownInIndex = aDecoder.decodeBool(forKey: "isShownInIndex")
         self.previewUrl = aDecoder.decodeObject(forKey: "previewUrl") as! String
         self.previewWidth = aDecoder.decodeInteger(forKey: "previewWidth")
