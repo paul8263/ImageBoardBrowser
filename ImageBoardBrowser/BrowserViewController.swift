@@ -15,7 +15,11 @@ class BrowserViewController: UIViewController {
     var imageInfoList: [ImageInfo] = []
     
     let spacing = 10
-    var itemsPerRow = 2
+    var itemsPerRow = 2 {
+        didSet {
+            imageCollectionView?.reloadData()
+        }
+    }
     
     var pagesLoaded = 1
     
@@ -37,7 +41,6 @@ class BrowserViewController: UIViewController {
                 self.showNetworkErrorAlertController()
             }
         })
-
     }
     
     func showNetworkErrorAlertController() {
@@ -76,7 +79,6 @@ class BrowserViewController: UIViewController {
         } else {
             self.itemsPerRow = 3
         }
-        self.imageCollectionView?.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -122,9 +124,6 @@ class BrowserViewController: UIViewController {
             self.itemsPerRow = 3
         } else {
             self.itemsPerRow = 2
-        }
-        if let collectionView = self.imageCollectionView {
-            collectionView.reloadData()
         }
     }
 }

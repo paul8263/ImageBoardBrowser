@@ -14,7 +14,11 @@ class FavourateViewController: UIViewController {
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
     let spacing = 10
-    var itemsPerRow = 2
+    var itemsPerRow = 2 {
+        didSet {
+            imageCollectionView?.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +47,6 @@ class FavourateViewController: UIViewController {
         } else {
             self.itemsPerRow = 3
         }
-        self.imageCollectionView?.reloadData()
     }
     
     func loadData() {
@@ -58,9 +61,6 @@ class FavourateViewController: UIViewController {
             self.itemsPerRow = 3
         } else {
             self.itemsPerRow = 2
-        }
-        if let collectionView = self.imageCollectionView {
-            collectionView.reloadData()
         }
     }
     

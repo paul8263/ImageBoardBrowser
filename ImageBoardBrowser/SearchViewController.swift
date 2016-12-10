@@ -19,7 +19,11 @@ class SearchViewController: UIViewController {
     var searchedTags = ""
     
     let spacing = 10
-    var itemsPerRow = 2
+    var itemsPerRow = 2 {
+        didSet {
+            imageCollectionView?.reloadData()
+        }
+    }
     
     var searchBar: UISearchBar = UISearchBar()
 
@@ -45,7 +49,6 @@ class SearchViewController: UIViewController {
         } else {
             self.itemsPerRow = 3
         }
-        self.imageCollectionView?.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -131,9 +134,6 @@ class SearchViewController: UIViewController {
             self.itemsPerRow = 3
         } else {
             self.itemsPerRow = 2
-        }
-        if let collectionView = self.imageCollectionView {
-            collectionView.reloadData()
         }
     }
 }

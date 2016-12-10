@@ -97,6 +97,8 @@ class SingleImageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.hidesBarsOnSwipe = false
         self.tagsLabel.text = imageInfo.tags
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         imageLoadingIndicator.startAnimating()
@@ -105,7 +107,6 @@ class SingleImageViewController: UIViewController {
             self.imageLoadingIndicator.stopAnimating()
         })
         self.alertController = createAlertController()
-        self.navigationController?.hidesBarsOnSwipe = false
     }
 
     override func didReceiveMemoryWarning() {
