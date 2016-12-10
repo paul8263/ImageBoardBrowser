@@ -264,7 +264,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="149"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="op9-1X-JrL">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="op9-1X-JrL">
                                                     <rect key="frame" x="87" y="-1" width="240" height="150"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="240" id="Qgt-NQ-RaU"/>
@@ -797,6 +797,6 @@
         <image name="Star" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eus-iY-KHI"/>
+        <segue reference="geY-OM-uWh"/>
     </inferredMetricsTieBreakers>
 </document>
