@@ -18,6 +18,8 @@ class WebsiteSwitchingTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        tableView.tableFooterView = UIView()
     }
 
     override func didReceiveMemoryWarning() {
