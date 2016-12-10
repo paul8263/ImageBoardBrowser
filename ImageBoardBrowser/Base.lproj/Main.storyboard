@@ -243,7 +243,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUI-UV-7N0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2196" y="-456.52173913043481"/>
+            <point key="canvasLocation" x="2329" y="7"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="V2s-re-wwy">
@@ -413,7 +413,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gd1-kV-FWp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="463.19999999999999" y="902.69865067466276"/>
+            <point key="canvasLocation" x="-477" y="1386"/>
         </scene>
         <!--About View Controller-->
         <scene sceneID="Jdf-5s-obE">
@@ -472,7 +472,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d5X-Sd-ySM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="475" y="1635"/>
+            <point key="canvasLocation" x="-477" y="2129"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="6v1-3Z-ZvV">
@@ -541,7 +541,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JAO-TC-FfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2353.6231884057975" y="902.44565217391312"/>
+            <point key="canvasLocation" x="1414" y="931"/>
         </scene>
         <!--Settings-->
         <scene sceneID="gdG-RV-hLk">
@@ -560,7 +560,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p2R-qK-VS3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-476" y="902.69865067466276"/>
+            <point key="canvasLocation" x="-477" y="653"/>
         </scene>
         <!--Search-->
         <scene sceneID="iVf-6G-lGt">
@@ -579,7 +579,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hd6-R1-PC4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1415.2" y="902.69865067466276"/>
+            <point key="canvasLocation" x="475" y="931"/>
         </scene>
     </scenes>
     <resources>
@@ -591,6 +591,6 @@
         <image name="Star" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="geY-OM-uWh"/>
+        <segue reference="eus-iY-KHI"/>
     </inferredMetricsTieBreakers>
 </document>
