@@ -9,12 +9,18 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
+    
+    var panGesture: UIPanGestureRecognizer?
+    
+    var interactiveTransitioning: UIPercentDrivenInteractiveTransition?
+    var isTransitioning = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         delegate = self
+        setupGestureRecognizer()
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,6 +28,11 @@ class MainTabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setupGestureRecognizer() {
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(swipped(sender:)))
+        panGesture?.delegate = self
+        view.addGestureRecognizer(panGesture!)
+    }
 
     /*
     // MARK: - Navigation
@@ -33,11 +44,59 @@ class MainTabBarController: UITabBarController {
     }
     */
 
+    func swipped(sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        let velocity = sender.velocity(in: view)
+        let percent = fabs(translation.x / view.frame.width)
+        switch sender.state {
+        case .began:
+            self.interactiveTransitioning = UIPercentDrivenInteractiveTransition()
+            self.isTransitioning = true
+            if velocity.x > 0 {
+                selectedIndex -= 1
+            }
+            if velocity.x < 0 {
+                selectedIndex += 1
+            }
+        case .changed:
+            self.interactiveTransitioning?.update(percent)
+        case .ended:
+            if percent > 0.3 {
+                self.interactiveTransitioning?.finish()
+            } else {
+                self.interactiveTransitioning?.cancel()
+            }
+            self.isTransitioning = false
+        default:
+            self.interactiveTransitioning?.cancel()
+            self.isTransitioning = false
+        }
+    }
+}
+
+extension MainTabBarController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let gesture = gestureRecognizer as? UIPanGestureRecognizer {
+            let velocity = gesture.velocity(in: view)
+            if fabs(velocity.x) > fabs(velocity.y) {
+                if velocity.x < 0 && selectedIndex < viewControllers!.count - 1 {
+                    return true
+                } else if velocity.x > 0 && selectedIndex > 0 {
+                    return true
+                }
+            }
+        }
+        return false
+    }
 }
 
 extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return isTransitioning ? self.interactiveTransitioning : nil
     }
 }
 

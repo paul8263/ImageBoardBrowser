@@ -25,9 +25,9 @@ class SettingsViewController: UITableViewController {
         self.safeModeSwitch.addTarget(self, action: #selector(safeModeSwitchValueChanged(sender:)), for: UIControlEvents.valueChanged)
         self.tableView.tableFooterView = UIView()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         setUserCacheLabel()
         setWebsiteDetailLabel()
     }
