@@ -28,6 +28,7 @@
 		2B8AA3041DFB97F10036B1B2 /* ImageTagsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8AA3031DFB97F10036B1B2 /* ImageTagsTableViewController.swift */; };
 		2B8AA3081DFBBC1F0036B1B2 /* SettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8AA3071DFBBC1F0036B1B2 /* SettingsHelper.swift */; };
 		2B8AA30A1DFBC1500036B1B2 /* WebsiteSwitchingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8AA3091DFBC1500036B1B2 /* WebsiteSwitchingTableViewController.swift */; };
+		2BDCA3941DFE9463008FDB71 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDCA3931DFE9463008FDB71 /* MainTabBarController.swift */; };
 		2BE091381DF59ECE003D01FD /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE091371DF59ECE003D01FD /* AboutViewController.swift */; };
 		58C2CE548B63AFB44E800333 /* Pods_ImageBoardBrowserUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA2B90F576EDB68ADE9D418 /* Pods_ImageBoardBrowserUITests.framework */; };
 		692950D2FEB13F5B97482D64 /* Pods_ImageBoardBrowserTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1AE7AFBFAC01910F96C941 /* Pods_ImageBoardBrowserTests.framework */; };
@@ -79,6 +80,7 @@
 		2B8AA3031DFB97F10036B1B2 /* ImageTagsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTagsTableViewController.swift; sourceTree = "<group>"; };
 		2B8AA3071DFBBC1F0036B1B2 /* SettingsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsHelper.swift; sourceTree = "<group>"; };
 		2B8AA3091DFBC1500036B1B2 /* WebsiteSwitchingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsiteSwitchingTableViewController.swift; sourceTree = "<group>"; };
+		2BDCA3931DFE9463008FDB71 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		2BE091371DF59ECE003D01FD /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		52AB080B54F8AF082DED3B58 /* Pods-ImageBoardBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageBoardBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageBoardBrowser/Pods-ImageBoardBrowser.release.xcconfig"; sourceTree = "<group>"; };
 		5445406C9FF578CC1F558386 /* Pods-ImageBoardBrowserTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageBoardBrowserTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageBoardBrowserTests/Pods-ImageBoardBrowserTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				2B8AA3011DFB8ED00036B1B2 /* ImageInfoTableViewController.swift */,
 				2B8AA3031DFB97F10036B1B2 /* ImageTagsTableViewController.swift */,
 				2B8AA3091DFBC1500036B1B2 /* WebsiteSwitchingTableViewController.swift */,
+				2BDCA3931DFE9463008FDB71 /* MainTabBarController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 			files = (
 				2B8AA3081DFBBC1F0036B1B2 /* SettingsHelper.swift in Sources */,
 				2B7C13721DF3A562008945BC /* ImageInfo.swift in Sources */,
+				2BDCA3941DFE9463008FDB71 /* MainTabBarController.swift in Sources */,
 				2B8AA3041DFB97F10036B1B2 /* ImageTagsTableViewController.swift in Sources */,
 				2B7C137F1DF3F665008945BC /* SearchImageCollectionCollectionViewCell.swift in Sources */,
 				2B7C13771DF3C3CE008945BC /* ImageCollectionViewCell.swift in Sources */,
