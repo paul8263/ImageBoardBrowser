@@ -1,5 +1,5 @@
 //
-//  FavourateViewController.swift
+//  FavouriteViewController.swift
 //  ImageBoardBrowser
 //
 //  Created by Paul Zhang on 4/12/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavourateViewController: UIViewController {
+class FavouriteViewController: UIViewController {
     var imageInfoList: [ImageInfo] = []
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -50,7 +50,7 @@ class FavourateViewController: UIViewController {
     }
     
     func loadData() {
-        self.imageInfoList = FavourateStorageHelper.loadFavourateList()
+        self.imageInfoList = FavouriteStorageHelper.loadFavouriteList()
         self.imageCollectionView.reloadData()
     }
     
@@ -70,7 +70,7 @@ class FavourateViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "showImageFromFavourate" {
+        if segue.identifier == "showImageFromFavourite" {
             let singleImageViewController = segue.destination as! SingleImageViewController
             singleImageViewController.imageInfo = sender as! ImageInfo
         }
@@ -78,7 +78,7 @@ class FavourateViewController: UIViewController {
     
 }
 
-extension FavourateViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1;
     }
@@ -88,7 +88,7 @@ extension FavourateViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favourateImageCollectionViewCell", for: indexPath) as! FavourateImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favouriteImageCollectionViewCell", for: indexPath) as! FavouriteImageCollectionViewCell
         cell.loadImage(urlString: self.imageInfoList[indexPath.row].previewUrl)
         return cell
     }
@@ -103,7 +103,7 @@ extension FavourateViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showImageFromFavourate", sender: imageInfoList[indexPath.row])
+        performSegue(withIdentifier: "showImageFromFavourite", sender: imageInfoList[indexPath.row])
     }
     
 }

@@ -65,14 +65,16 @@ class SingleImageViewController: UIViewController {
     
     func createAlertController() -> UIAlertController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let favourateAction: UIAlertAction!
-        if FavourateStorageHelper.isExisting(imageInfo: imageInfo) {
-            favourateAction = UIAlertAction(title: "Remove from Favourate", style: UIAlertActionStyle.default, handler: { (action) in
-                FavourateStorageHelper.removeOneFromFavourateList(imageInfo: self.imageInfo)
+        let favouriteAction: UIAlertAction!
+        if FavouriteStorageHelper.isExisting(imageInfo: imageInfo) {
+            favouriteAction = UIAlertAction(title: "Remove from Favourite", style: UIAlertActionStyle.default, handler: { (action) in
+                FavouriteStorageHelper.removeOneFromFavouriteList(imageInfo: self.imageInfo)
+                self.alertController = self.createAlertController()
             })
         } else {
-            favourateAction = UIAlertAction(title: "Add to Favourate", style: UIAlertActionStyle.default, handler: { (action) in
-                FavourateStorageHelper.addToFavourateList(imageInfo: self.imageInfo)
+            favouriteAction = UIAlertAction(title: "Add to Favourite", style: UIAlertActionStyle.default, handler: { (action) in
+                FavouriteStorageHelper.addToFavouriteList(imageInfo: self.imageInfo)
+                self.alertController = self.createAlertController()
             })
         }
         
@@ -88,7 +90,7 @@ class SingleImageViewController: UIViewController {
             })
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
-        alertController.addAction(favourateAction)
+        alertController.addAction(favouriteAction)
         alertController.addAction(saveToAlbumAction)
         alertController.addAction(requestLargerImageAction)
         alertController.addAction(cancelAction)

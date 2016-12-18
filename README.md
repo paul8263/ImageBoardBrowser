@@ -9,7 +9,7 @@ This project is the iOS client of Japanese anime image board site including:
 
 1. Browse latest images
 2. Request large sample or original jpeg file
-3. Add favourite image to favourate collection
+3. Add favourite image to favourite collection
 4. Search image by tags
 5. Quick search images with one of the same tag of the current browsing image
 6. Save image to photos

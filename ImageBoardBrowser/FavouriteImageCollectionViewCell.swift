@@ -1,5 +1,5 @@
 //
-//  FavourateImageCollectionViewCell.swift
+//  FavouriteImageCollectionViewCell.swift
 //  ImageBoardBrowser
 //
 //  Created by Paul Zhang on 5/12/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavourateImageCollectionViewCell: UICollectionViewCell {
+class FavouriteImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     override func awakeFromNib() {
         self.imageView.clipsToBounds = true
