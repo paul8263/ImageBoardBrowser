@@ -15,6 +15,11 @@ class FavouriteImageCollectionViewCell: UICollectionViewCell {
         self.imageView.layer.cornerRadius = 3
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.imageView.sd_cancelCurrentImageLoad()
+    }
+    
     func loadImage(urlString: String) {
         self.imageView.sd_setImage(with: URL(string: urlString)!, placeholderImage: UIImage(named: "placeholder"))
     }

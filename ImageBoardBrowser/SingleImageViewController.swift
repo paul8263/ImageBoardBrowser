@@ -104,6 +104,10 @@ class SingleImageViewController: UIViewController {
         self.alertController = createAlertController()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        cancelLoadImage()
+    }
     
     func loadImage(withURL urlString: String) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -126,6 +130,11 @@ class SingleImageViewController: UIViewController {
                 self.loadingProgressView.isHidden = true
                 self.imageLoadingIndicator.stopAnimating()
         })
+    }
+    
+    func cancelLoadImage() {
+        self.imageView.sd_cancelCurrentImageLoad()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 
     override func didReceiveMemoryWarning() {
