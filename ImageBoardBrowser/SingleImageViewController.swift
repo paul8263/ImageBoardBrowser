@@ -83,12 +83,7 @@ class SingleImageViewController: UIViewController {
             UIImageWriteToSavedPhotosAlbum(self.imageView.image!, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
         })
         let requestLargerImageAction = UIAlertAction(title: "Request Larger Image", style: UIAlertActionStyle.default, handler: { (action) in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            self.imageLoadingIndicator.startAnimating()
-            self.imageView.sd_setImage(with: URL(string: self.imageInfo.jpegUrl)!, completed: { void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                self.imageLoadingIndicator.stopAnimating()
-            })
+            self.loadImage(withURL: self.imageInfo.jpegUrl)
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
         alertController.addAction(favouriteAction)
@@ -104,19 +99,20 @@ class SingleImageViewController: UIViewController {
         self.navigationController?.hidesBarsOnSwipe = false
         self.tagsLabel.text = imageInfo.tags
         
-        loadImage()
+        loadImage(withURL: imageInfo.sampleUrl)
         
         self.alertController = createAlertController()
     }
     
     
-    func loadImage() {
+    func loadImage(withURL urlString: String) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         imageLoadingIndicator.startAnimating()
         loadingProgressView.isHidden = false
+        loadingProgressView.setProgress(0, animated: false)
         
         self.imageView.sd_setImage(
-            with: URL(string: imageInfo.sampleUrl)!,
+            with: URL(string: urlString)!,
             placeholderImage: UIImage(named: "placeholder"),
             options: SDWebImageOptions.allowInvalidSSLCertificates,
             progress: { (finished, expected) in
