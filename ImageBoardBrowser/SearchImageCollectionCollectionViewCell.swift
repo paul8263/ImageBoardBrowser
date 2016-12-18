@@ -18,6 +18,6 @@ class SearchImageCollectionCollectionViewCell: UICollectionViewCell {
     }
     
     func loadImage(urlString: String) {
-        self.imageView.sd_setImage(with: URL(string: urlString)!)
+        self.imageView.sd_setImage(with: URL(string: urlString)!, placeholderImage: UIImage(named: "placeholder"))
     }
 }

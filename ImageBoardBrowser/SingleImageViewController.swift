@@ -18,6 +18,8 @@ class SingleImageViewController: UIViewController {
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var loadingProgressView: UIProgressView!
+    
     
     @IBOutlet weak var imageLoadingIndicator: UIActivityIndicatorView!
     @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
@@ -52,7 +54,6 @@ class SingleImageViewController: UIViewController {
         
         imageLoadingIndicator.isHidden = false
         imageLoadingIndicator.hidesWhenStopped = true
-        
     }
     
     func longPressed(sender: UILongPressGestureRecognizer) {
@@ -102,13 +103,33 @@ class SingleImageViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.hidesBarsOnSwipe = false
         self.tagsLabel.text = imageInfo.tags
+        
+        loadImage()
+        
+        self.alertController = createAlertController()
+    }
+    
+    
+    func loadImage() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         imageLoadingIndicator.startAnimating()
-        self.imageView.sd_setImage(with: URL(string: imageInfo.sampleUrl)!, completed: { void in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            self.imageLoadingIndicator.stopAnimating()
+        loadingProgressView.isHidden = false
+        
+        self.imageView.sd_setImage(
+            with: URL(string: imageInfo.sampleUrl)!,
+            placeholderImage: UIImage(named: "placeholder"),
+            options: SDWebImageOptions.allowInvalidSSLCertificates,
+            progress: { (finished, expected) in
+                DispatchQueue.main.async {
+                    let progress = (Float(finished) / Float(expected))
+                    self.loadingProgressView.setProgress(progress, animated: true);
+                }
+        },
+            completed: { void in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.loadingProgressView.isHidden = true
+                self.imageLoadingIndicator.stopAnimating()
         })
-        self.alertController = createAlertController()
     }
 
     override func didReceiveMemoryWarning() {

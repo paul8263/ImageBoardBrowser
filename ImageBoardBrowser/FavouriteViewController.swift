@@ -75,7 +75,6 @@ class FavouriteViewController: UIViewController {
             singleImageViewController.imageInfo = sender as! ImageInfo
         }
     }
-    
 }
 
 extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {

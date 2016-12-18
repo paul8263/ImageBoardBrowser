@@ -208,6 +208,9 @@
                                     <constraint firstAttribute="bottom" secondItem="qpu-GX-MAn" secondAttribute="bottom" id="whN-Hw-dx2"/>
                                 </constraints>
                             </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mWK-TX-Sq7">
+                                <rect key="frame" x="0.0" y="64" width="414" height="2"/>
+                            </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cg1-Dl-p2m">
                                 <rect key="frame" x="20" y="607" width="374" height="80"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -217,11 +220,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="mWK-TX-Sq7" firstAttribute="leading" secondItem="PS2-EQ-0Cw" secondAttribute="leading" id="1JS-qd-Imn"/>
+                            <constraint firstItem="mWK-TX-Sq7" firstAttribute="top" secondItem="Lgy-lw-Qas" secondAttribute="bottom" id="4bx-9J-9Nj"/>
                             <constraint firstItem="cg1-Dl-p2m" firstAttribute="leading" secondItem="PS2-EQ-0Cw" secondAttribute="leadingMargin" id="BTH-aF-hiQ"/>
                             <constraint firstItem="TKW-zq-fFz" firstAttribute="top" secondItem="PM4-SE-0Fl" secondAttribute="bottom" constant="80" id="TBt-iA-Ov7"/>
                             <constraint firstItem="cg1-Dl-p2m" firstAttribute="top" secondItem="PM4-SE-0Fl" secondAttribute="bottom" id="gcT-7H-6cX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cg1-Dl-p2m" secondAttribute="trailing" id="nub-U8-AU7"/>
                             <constraint firstItem="PM4-SE-0Fl" firstAttribute="leading" secondItem="PS2-EQ-0Cw" secondAttribute="leading" id="o8g-Eb-lNM"/>
+                            <constraint firstAttribute="trailing" secondItem="mWK-TX-Sq7" secondAttribute="trailing" id="uOo-hi-Ywr"/>
                             <constraint firstItem="TKW-zq-fFz" firstAttribute="top" secondItem="cg1-Dl-p2m" secondAttribute="bottom" id="wwk-fR-52e"/>
                             <constraint firstItem="PM4-SE-0Fl" firstAttribute="top" secondItem="PS2-EQ-0Cw" secondAttribute="top" id="yP7-R9-FZT"/>
                             <constraint firstAttribute="trailing" secondItem="PM4-SE-0Fl" secondAttribute="trailing" id="zoM-ST-9Be"/>
@@ -237,6 +243,7 @@
                     <connections>
                         <outlet property="imageLoadingIndicator" destination="I7j-70-2ab" id="14y-Zj-pNV"/>
                         <outlet property="imageView" destination="uPD-4x-kHa" id="h6H-Ty-aHD"/>
+                        <outlet property="loadingProgressView" destination="mWK-TX-Sq7" id="t7I-gQ-jZK"/>
                         <outlet property="scrollView" destination="qpu-GX-MAn" id="exO-VT-ptJ"/>
                         <outlet property="tagsLabel" destination="cg1-Dl-p2m" id="qHu-0r-gL3"/>
                         <segue destination="EsQ-fv-GgZ" kind="show" identifier="showImageInfo" id="iWI-8A-hfX"/>
