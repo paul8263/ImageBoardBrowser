@@ -22,7 +22,7 @@ class SearchImageCollectionCollectionViewCell: UICollectionViewCell {
         self.imageView.sd_cancelCurrentImageLoad()
     }
     
-    func loadImage(urlString: String) {
-        self.imageView.sd_setImage(with: URL(string: urlString)!, placeholderImage: UIImage(named: "placeholder"))
+    func loadImage(url: URL) {
+        self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"))
     }
 }

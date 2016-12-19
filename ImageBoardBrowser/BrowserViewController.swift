@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import SDWebImage
 
 class BrowserViewController: UIViewController {
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -24,6 +25,7 @@ class BrowserViewController: UIViewController {
     var pagesLoaded = 1
     
     @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
+        
         pagesLoaded = 1
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -138,7 +140,7 @@ extension BrowserViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
-        cell.loadImage(urlString: self.imageInfoList[indexPath.row].previewUrl)
+        cell.loadImage(url: self.imageInfoList[indexPath.row].getPreviewURL())
         return cell
     }
     

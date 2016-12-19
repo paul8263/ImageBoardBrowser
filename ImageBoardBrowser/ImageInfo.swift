@@ -157,4 +157,36 @@ class ImageInfo: NSObject, NSCoding {
             self.flagDetail = aDecoder.decodeObject(forKey: "flagDetail") as? String
         }
     }
+    
+    func getPreviewURL() -> URL {
+        var urlComponent = URLComponents(string: previewUrl)!
+        if urlComponent.scheme == nil {
+            urlComponent.scheme = "https"
+        }
+        return urlComponent.url(relativeTo: nil)!
+    }
+    
+    func getSampleURL() -> URL {
+        var urlComponent = URLComponents(string: sampleUrl)!
+        if urlComponent.scheme == nil {
+            urlComponent.scheme = "https"
+        }
+        return urlComponent.url(relativeTo: nil)!
+    }
+    
+    func getJpegURL() -> URL {
+        var urlComponent = URLComponents(string: jpegUrl)!
+        if urlComponent.scheme == nil {
+            urlComponent.scheme = "https"
+        }
+        return urlComponent.url(relativeTo: nil)!
+    }
+    
+    func getFileURL() -> URL {
+        var urlComponent = URLComponents(string: fileUrl)!
+        if urlComponent.scheme == nil {
+            urlComponent.scheme = "https"
+        }
+        return urlComponent.url(relativeTo: nil)!
+    }
 }

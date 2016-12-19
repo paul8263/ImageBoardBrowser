@@ -154,7 +154,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchImageCollectionViewCell", for: indexPath) as! SearchImageCollectionCollectionViewCell
-        cell.loadImage(urlString: imageInfoList[indexPath.row].previewUrl)
+        cell.loadImage(url: imageInfoList[indexPath.row].getPreviewURL())
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
