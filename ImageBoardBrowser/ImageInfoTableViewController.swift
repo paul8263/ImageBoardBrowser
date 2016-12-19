@@ -41,7 +41,7 @@ class ImageInfoTableViewController: UITableViewController {
     }
     
     func displayData() {
-        previewImageView.sd_setImage(with: URL(string: imageInfo.previewUrl))
+        previewImageView.sd_setImage(with: imageInfo.getPreviewURL())
         authorLabel.text = imageInfo.author
         scoreLabel.text = "\(imageInfo.score)"
         
