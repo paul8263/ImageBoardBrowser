@@ -92,12 +92,14 @@ class SearchViewController: UIViewController {
     func performSearch() {
         pagesLoaded = 1
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        showLoadingIndicatorView()
         ImageDownloader.downloadImages(withTags: self.searchedTags, withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
             self.imageInfoList = imageInfoList
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.hideLoadingIndicatorView()
                 if self.imageInfoList.count != 0 {
                     self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
                     self.navigationController?.hidesBarsOnSwipe = true
@@ -108,20 +110,24 @@ class SearchViewController: UIViewController {
         }, failureHandler: {(error) in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.hideLoadingIndicatorView()
                 self.showNetworkErrorAlertController()
             }
         })
     }
     func loadMoreData() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        showLoadingIndicatorView()
         ImageDownloader.downloadImages(withTags: self.searchedTags, withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
             self.imageInfoList += imageInfoList
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.hideLoadingIndicatorView()
         }, failureHandler: {(error) in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.hideLoadingIndicatorView()
                 self.showNetworkErrorAlertController()
             }
         })

@@ -29,17 +29,20 @@ class BrowserViewController: UIViewController {
         pagesLoaded = 1
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        showLoadingIndicatorView()
         ImageDownloader.downloadImages(withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
             self.imageInfoList = imageInfoList
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.hideLoadingIndicatorView()
             if self.imageInfoList.count != 0 {
                 self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
             }
         }, failureHandler: {(error) in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.hideLoadingIndicatorView()
                 self.showNetworkErrorAlertController()
             }
         })
@@ -93,15 +96,18 @@ class BrowserViewController: UIViewController {
     
     func loadMoreData() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        self.showLoadingIndicatorView()
         ImageDownloader.downloadImages(withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
             self.imageInfoList += imageInfoList
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.navigationController?.hidesBarsOnSwipe = true
+            self.hideLoadingIndicatorView()
         }, failureHandler: {(error) in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.hideLoadingIndicatorView()
                 self.showNetworkErrorAlertController()
             }            
         })
