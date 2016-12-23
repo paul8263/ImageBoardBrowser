@@ -59,6 +59,13 @@ class SingleImageViewController: UIViewController {
     func longPressed(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             if let alertController = self.alertController {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if let popoverController = alertController.popoverPresentationController {
+                        popoverController.sourceView = imageView
+                        let point = sender.location(in: imageView)
+                        popoverController.sourceRect = CGRect(origin: point, size: CGSize.zero)
+                    }
+                }
                 present(alertController, animated: true, completion: nil)
             }
         }
@@ -90,6 +97,7 @@ class SingleImageViewController: UIViewController {
         alertController.addAction(saveToAlbumAction)
         alertController.addAction(requestLargerImageAction)
         alertController.addAction(cancelAction)
+        
         return alertController
     }
     

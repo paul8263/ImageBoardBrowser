@@ -86,7 +86,13 @@ class SettingsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 1 {
-            let alertController = UIAlertController(title: "Delete Cache?", message: nil, preferredStyle: .actionSheet)
+            var alertController: UIAlertController!
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                alertController = UIAlertController(title: "Delete Cache?", message: nil, preferredStyle: .actionSheet)
+            } else {
+                alertController = UIAlertController(title: "Delete Cache?", message: nil, preferredStyle: .alert)
+            }
+            
             let okAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.destructive, handler: { (action) in
                 self.sdImageCache.clearDisk()
                 self.setUserCacheLabel()
@@ -94,6 +100,7 @@ class SettingsViewController: UITableViewController {
             let cancelAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
             alertController.addAction(okAlertAction)
             alertController.addAction(cancelAlertAction)
+            
             present(alertController, animated: true, completion: nil)
         }
         tableView.deselectRow(at: indexPath, animated: true)

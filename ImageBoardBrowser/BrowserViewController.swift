@@ -18,7 +18,7 @@ class BrowserViewController: UIViewController {
     let spacing = 10
     var itemsPerRow = 2 {
         didSet {
-            imageCollectionView?.reloadData()
+            imageCollectionView?.collectionViewLayout.invalidateLayout()
         }
     }
     
