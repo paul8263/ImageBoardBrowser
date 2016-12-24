@@ -23,7 +23,7 @@ class SingleImageViewController: UIViewController {
     
     @IBOutlet weak var imageLoadingIndicator: UIActivityIndicatorView!
     @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
-//        UIImageWriteToSavedPhotosAlbum(self.imageView.image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+
         performSegue(withIdentifier: "showImageInfo", sender: imageInfo)
     }
     
@@ -134,24 +134,25 @@ class SingleImageViewController: UIViewController {
                 }
         },
             completed: { void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                self.loadingProgressView.isHidden = true
-                self.imageLoadingIndicator.stopAnimating()
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    self.loadingProgressView.isHidden = true
+                    self.imageLoadingIndicator.stopAnimating()
+                }
         })
     }
     
     func cancelLoadImage() {
         self.imageView.sd_cancelCurrentImageLoad()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        imageLoadingIndicator.stopAnimating()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -163,8 +164,6 @@ class SingleImageViewController: UIViewController {
             imageInfoTableViewController.imageInfo = sender as! ImageInfo
         }
     }
-    
-
 }
 
 extension SingleImageViewController: UIScrollViewDelegate {

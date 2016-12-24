@@ -39,17 +39,20 @@ class ImageDownloader {
         return imageInfoList
     }
     
-    static func downloadImages(withPage: Int, completionHandler: @escaping (_ imageInfoList: [ImageInfo]) -> Void, failureHandler: ((_ error: Error) -> Void)?) {
-        let defaultTag = SettingsHelper.getSafeMode() ? "rating:s" : ""
-        let urlString = "\(SettingsHelper.getWebsite())/post.json?tags=\(defaultTag)&page=\(withPage)&limit=20".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlFragmentAllowed)!
-        let url = URL(string: urlString)!
+    private static func buildURL(withPage page: Int, tags: String?) -> URL {
+        let safeModeTag = SettingsHelper.getSafeMode() ? "rating:s+" : ""
+        let filterTags = tags != nil ? tags! : ""
+        let urlString = "\(SettingsHelper.getWebsite())/post.json?tags=\(safeModeTag)\(filterTags)&page=\(page)&limit=20".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlFragmentAllowed)!
+        return URL(string: urlString)!
+    }
+    
+    static func downloadImages(withPage page: Int, completionHandler: @escaping (_ imageInfoList: [ImageInfo]) -> Void, failureHandler: ((_ error: Error) -> Void)?) {
+        let url = buildURL(withPage: page, tags: nil)
         downloadWithURL(url: url, completionHandler: completionHandler, failureHandler: failureHandler)
     }
     
-    static func downloadImages(withTags: String, withPage: Int, completionHandler: @escaping (_ imageInfoList: [ImageInfo]) -> Void, failureHandler: ((_ error: Error) -> Void)?) {
-        let defaultTag = SettingsHelper.getSafeMode() ? "rating:s+" : ""
-        let urlString = "\(SettingsHelper.getWebsite())/post.json?tags=\(defaultTag)\(withTags)&page=\(withPage)&limit=20".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlFragmentAllowed)!
-        let url = URL(string: urlString)!
+    static func downloadImages(withTags tags: String, withPage page: Int, completionHandler: @escaping (_ imageInfoList: [ImageInfo]) -> Void, failureHandler: ((_ error: Error) -> Void)?) {
+        let url = buildURL(withPage: page, tags: tags)
         downloadWithURL(url: url, completionHandler: completionHandler, failureHandler: failureHandler)
     }
 }
