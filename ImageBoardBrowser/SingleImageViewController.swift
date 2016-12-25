@@ -9,16 +9,32 @@
 import UIKit
 import SDWebImage
 
+enum TypeOfImagePresented {
+    case sample
+    case jpeg
+}
+
 class SingleImageViewController: UIViewController {
+    
     
     var imageInfo: ImageInfo!
     
     var alertController: UIAlertController?
     
+    var typeOfImagePresented: TypeOfImagePresented = .sample
+    
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var loadingProgressView: UIProgressView!
+    
+    @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     
     
     @IBOutlet weak var imageLoadingIndicator: UIActivityIndicatorView!
@@ -40,6 +56,20 @@ class SingleImageViewController: UIViewController {
             successAlertController.addAction(okAction)
             self.present(successAlertController, animated: true, completion: nil)
         }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        perform(#selector(setMinScaleAndCenterImageAfterRotation), with: nil, afterDelay: 0.4)
+    }
+    
+    func setMinScaleAndCenterImageAfterRotation() {
+        UIView.animate(withDuration: 0.3) { 
+            self.setMinZoomScale()
+            self.setImageViewCenterToScrollView()
+        }
+        
     }
     
     override func viewDidLoad() {
@@ -89,13 +119,24 @@ class SingleImageViewController: UIViewController {
         let saveToAlbumAction = UIAlertAction(title: "Save to Album", style: UIAlertActionStyle.default, handler: { (action) in
             UIImageWriteToSavedPhotosAlbum(self.imageView.image!, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
         })
-        let requestLargerImageAction = UIAlertAction(title: "Request Larger Image", style: UIAlertActionStyle.default, handler: { (action) in
-            self.loadImage(withURL: self.imageInfo.getJpegURL())
-        })
+        let requestImageAction: UIAlertAction!
+        switch typeOfImagePresented {
+        case .sample:
+            requestImageAction = UIAlertAction(title: "Request Larger Image", style: UIAlertActionStyle.default, handler: { (action) in
+                self.typeOfImagePresented = .jpeg
+                self.loadImage(withURL: self.imageInfo.getJpegURL())
+            })
+        case .jpeg:
+            requestImageAction = UIAlertAction(title: "Request Sample Image", style: UIAlertActionStyle.default, handler: { (action) in
+                self.typeOfImagePresented = .sample
+                self.loadImage(withURL: self.imageInfo.getSampleURL())
+            })
+        }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
         alertController.addAction(favouriteAction)
         alertController.addAction(saveToAlbumAction)
-        alertController.addAction(requestLargerImageAction)
+        alertController.addAction(requestImageAction)
         alertController.addAction(cancelAction)
         
         return alertController
@@ -108,8 +149,13 @@ class SingleImageViewController: UIViewController {
         self.tagsLabel.text = imageInfo.tags
         
         loadImage(withURL: imageInfo.getSampleURL())
-        
-        self.alertController = createAlertController()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setImageViewSizeConstraint()
+        setMinZoomScale()
+        setImageViewCenterToScrollView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -117,11 +163,43 @@ class SingleImageViewController: UIViewController {
         cancelLoadImage()
     }
     
+    private func setImageViewSizeConstraint() {
+        switch typeOfImagePresented {
+        case .sample:
+            imageViewHeightConstraint.constant = CGFloat(imageInfo.sampleHeight)
+            imageViewWidthConstraint.constant = CGFloat(imageInfo.sampleWidth)
+        case .jpeg:
+            imageViewHeightConstraint.constant = CGFloat(imageInfo.jpegHeight)
+            imageViewWidthConstraint.constant = CGFloat(imageInfo.jpegWidth)
+        }
+        view.layoutIfNeeded()
+    }
+    
+    private func setMinZoomScale() {
+        let widthScale = scrollView.bounds.width / imageViewWidthConstraint.constant
+        let heightScale = scrollView.bounds.height / imageViewHeightConstraint.constant
+        let minScale = min(widthScale, heightScale)
+        scrollView.minimumZoomScale = minScale
+        scrollView.zoomScale = minScale
+    }
+ 
+    fileprivate func setImageViewCenterToScrollView() {
+        
+        let x = max(0, (scrollView.bounds.width - imageView.frame.width) / 2)
+        imageViewTrailingConstraint.constant = x
+        imageViewLeadingConstraint.constant = x
+        let y = max(0, (scrollView.bounds.height - imageView.frame.height) / 2)
+        imageViewTopConstraint.constant = y
+        imageViewBottomConstraint.constant = y
+        view.layoutIfNeeded()        
+    }
+    
     func loadImage(withURL url: URL) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         imageLoadingIndicator.startAnimating()
         loadingProgressView.isHidden = false
         loadingProgressView.setProgress(0, animated: false)
+        alertController = createAlertController()
         
         self.imageView.sd_setImage(
             with: url,
@@ -169,5 +247,9 @@ class SingleImageViewController: UIViewController {
 extension SingleImageViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imageView
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        setImageViewCenterToScrollView()
     }
 }

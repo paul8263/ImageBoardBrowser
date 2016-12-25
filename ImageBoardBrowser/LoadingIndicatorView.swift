@@ -23,7 +23,7 @@ class LoadingIndicatorView: UIView {
         let layer = CAReplicatorLayer()
         layer.bounds = bounds
         layer.backgroundColor = UIColor(white: 0.2, alpha: 1).cgColor
-        layer.cornerRadius = 2
+        layer.cornerRadius = 5
         layer.masksToBounds = true
         
         self.layer.addSublayer(layer)

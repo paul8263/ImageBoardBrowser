@@ -42,7 +42,7 @@ class ImageDownloader {
     private static func buildURL(withPage page: Int, tags: String?) -> URL {
         let safeModeTag = SettingsHelper.getSafeMode() ? "rating:s+" : ""
         let filterTags = tags != nil ? tags! : ""
-        let urlString = "\(SettingsHelper.getWebsite())/post.json?tags=\(safeModeTag)\(filterTags)&page=\(page)&limit=20".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlFragmentAllowed)!
+        let urlString = "\(SettingsHelper.getWebsite())/post.json?tags=\(safeModeTag)\(filterTags)&page=\(page)&limit=24".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlFragmentAllowed)!
         return URL(string: urlString)!
     }
     

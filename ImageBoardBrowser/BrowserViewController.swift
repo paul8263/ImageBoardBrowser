@@ -125,8 +125,8 @@ class BrowserViewController: UIViewController {
         }
     }
     
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransition(to: newCollection, with: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         let rect = UIScreen.main.bounds
         if rect.height > rect.width {
             self.itemsPerRow = 3
