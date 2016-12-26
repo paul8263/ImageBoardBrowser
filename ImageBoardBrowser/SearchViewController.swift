@@ -14,6 +14,16 @@ class SearchViewController: UIViewController {
     
     var imageInfoList: [ImageInfo] = []
     
+    var currentImageLoadingTaskCount = 0 {
+        didSet {
+            if currentImageLoadingTaskCount == 0 {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            } else {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            }
+        }
+    }
+    
     var pagesLoaded = 1
     
     var searchedTags = ""
@@ -42,7 +52,7 @@ class SearchViewController: UIViewController {
         reorderCollectionViewOnRotation()
     }
     
-    func reorderCollectionViewOnRotation() {
+    private func reorderCollectionViewOnRotation() {
         let rect = UIScreen.main.bounds
         if rect.height > rect.width {
             self.itemsPerRow = 2
@@ -82,7 +92,7 @@ class SearchViewController: UIViewController {
         searchBar.resignFirstResponder()
     }
     
-    func showNetworkErrorAlertController() {
+    private func showNetworkErrorAlertController() {
         let alertController = UIAlertController(title: "No Network", message: "Please connect your device to network", preferredStyle: UIAlertControllerStyle.alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
@@ -98,7 +108,6 @@ class SearchViewController: UIViewController {
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
             DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 self.hideLoadingIndicatorView()
                 if self.imageInfoList.count != 0 {
                     self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
@@ -115,14 +124,13 @@ class SearchViewController: UIViewController {
             }
         })
     }
-    func loadMoreData() {
+    fileprivate func loadMoreData() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         showLoadingIndicatorView()
         ImageDownloader.downloadImages(withTags: self.searchedTags, withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
             self.imageInfoList += imageInfoList
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.hideLoadingIndicatorView()
         }, failureHandler: {(error) in
             DispatchQueue.main.async {
@@ -160,6 +168,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchImageCollectionViewCell", for: indexPath) as! SearchImageCollectionCollectionViewCell
+        cell.delegate = self
         cell.loadImage(url: imageInfoList[indexPath.row].getPreviewURL())
         return cell
     }
@@ -183,5 +192,17 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showImageFromSearch", sender: imageInfoList[indexPath.row])
+    }
+}
+
+extension SearchViewController: ImageCollectionViewCellDelegate {
+    func imageLoadingWillStart() {
+        currentImageLoadingTaskCount += 1
+    }
+    
+    func imageLoadingDidStop() {
+        if currentImageLoadingTaskCount > 0 {
+            currentImageLoadingTaskCount -= 1
+        }
     }
 }

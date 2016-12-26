@@ -37,12 +37,12 @@ class SettingsViewController: UITableViewController {
         setUserCacheLabel()
     }
     
-    func setUserCacheLabel() {
+    private func setUserCacheLabel() {
         let cacheSize = Double(sdImageCache.getSize()) / 1000000
         self.usedCacheLabel.text = String.init(format: "Used Cache: %.2f MB", cacheSize)
     }
     
-    func setWebsiteDetailLabel() {
+    private func setWebsiteDetailLabel() {
         let website: Website = Website(rawValue: SettingsHelper.getWebsite())!
         switch website {
         case .Konachan:

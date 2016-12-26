@@ -13,7 +13,18 @@ class FavouriteViewController: UIViewController {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
+    var currentImageLoadingTaskCount = 0 {
+        didSet {
+            if currentImageLoadingTaskCount == 0 {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            } else {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            }
+        }
+    }
+    
     let spacing = 10
+    
     var itemsPerRow = 2 {
         didSet {
             imageCollectionView?.collectionViewLayout.invalidateLayout()
@@ -40,7 +51,7 @@ class FavouriteViewController: UIViewController {
         reorderCollectionViewOnRotation()
     }
     
-    func reorderCollectionViewOnRotation() {
+    private func reorderCollectionViewOnRotation() {
         let rect = UIScreen.main.bounds
         if rect.height > rect.width {
             self.itemsPerRow = 2
@@ -49,7 +60,7 @@ class FavouriteViewController: UIViewController {
         }
     }
     
-    func loadData() {
+    private func loadData() {
         self.imageInfoList = FavouriteStorageHelper.loadFavouriteList()
         self.imageCollectionView.reloadData()
     }
@@ -88,6 +99,7 @@ extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favouriteImageCollectionViewCell", for: indexPath) as! FavouriteImageCollectionViewCell
+        cell.delegate = self
         cell.loadImage(url: self.imageInfoList[indexPath.row].getPreviewURL())
         return cell
     }
@@ -105,4 +117,16 @@ extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewD
         performSegue(withIdentifier: "showImageFromFavourite", sender: imageInfoList[indexPath.row])
     }
     
+}
+
+extension FavouriteViewController: ImageCollectionViewCellDelegate {
+    func imageLoadingWillStart() {
+        currentImageLoadingTaskCount += 1
+    }
+    
+    func imageLoadingDidStop() {
+        if currentImageLoadingTaskCount > 0 {
+            currentImageLoadingTaskCount -= 1
+        }
+    }
 }

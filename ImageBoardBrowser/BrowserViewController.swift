@@ -15,7 +15,18 @@ class BrowserViewController: UIViewController {
     
     var imageInfoList: [ImageInfo] = []
     
+    var currentImageLoadingTaskCount = 0 {
+        didSet {
+            if currentImageLoadingTaskCount == 0 {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            } else {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            }
+        }
+    }
+    
     let spacing = 10
+    
     var itemsPerRow = 2 {
         didSet {
             imageCollectionView?.collectionViewLayout.invalidateLayout()
@@ -24,21 +35,16 @@ class BrowserViewController: UIViewController {
     
     var pagesLoaded = 1
     
-    @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
-        
-        pagesLoaded = 1
-        
+    private func loadData(withOtherOperation otherOperation: (() -> Void)?) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        showLoadingIndicatorView()
-        ImageDownloader.downloadImages(withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
-            self.imageInfoList = imageInfoList
-            self.pagesLoaded = self.pagesLoaded + 1
+        self.showLoadingIndicatorView()
+        ImageDownloader.downloadImages(withPage: pagesLoaded, completionHandler: {(downloadedImageInfoList) -> Void in
+            self.imageInfoList += downloadedImageInfoList
+            self.pagesLoaded += 1
             self.imageCollectionView.reloadData()
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.navigationController?.hidesBarsOnSwipe = true
             self.hideLoadingIndicatorView()
-            if self.imageInfoList.count != 0 {
-                self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
-            }
+            otherOperation?()
         }, failureHandler: {(error) in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -48,7 +54,18 @@ class BrowserViewController: UIViewController {
         })
     }
     
-    func showNetworkErrorAlertController() {
+    @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
+        
+        pagesLoaded = 1
+        self.imageInfoList = []
+        loadData { 
+            if self.imageInfoList.count != 0 {
+                self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
+            }
+        }
+    }
+    
+    private func showNetworkErrorAlertController() {
         let alertController = UIAlertController(title: "No Network", message: "Please connect your device to network", preferredStyle: UIAlertControllerStyle.alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
@@ -77,7 +94,7 @@ class BrowserViewController: UIViewController {
         reorderCollectionViewOnRotation()
     }
     
-    func reorderCollectionViewOnRotation() {
+    private func reorderCollectionViewOnRotation() {
         let rect = UIScreen.main.bounds
         if rect.height > rect.width {
             self.itemsPerRow = 2
@@ -94,23 +111,8 @@ class BrowserViewController: UIViewController {
         }        
     }
     
-    func loadMoreData() {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        self.showLoadingIndicatorView()
-        ImageDownloader.downloadImages(withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
-            self.imageInfoList += imageInfoList
-            self.pagesLoaded = self.pagesLoaded + 1
-            self.imageCollectionView.reloadData()
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            self.navigationController?.hidesBarsOnSwipe = true
-            self.hideLoadingIndicatorView()
-        }, failureHandler: {(error) in
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                self.hideLoadingIndicatorView()
-                self.showNetworkErrorAlertController()
-            }            
-        })
+    fileprivate func loadMoreData() {
+        loadData(withOtherOperation: nil)
     }
 
     // MARK: - Navigation
@@ -146,6 +148,7 @@ extension BrowserViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
+        cell.delegate = self
         cell.loadImage(url: self.imageInfoList[indexPath.row].getPreviewURL())
         return cell
     }
@@ -168,5 +171,16 @@ extension BrowserViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showImage", sender: imageInfoList[indexPath.row])
     }
+}
+
+extension BrowserViewController: ImageCollectionViewCellDelegate {
+    func imageLoadingWillStart() {
+        currentImageLoadingTaskCount += 1
+    }
     
+    func imageLoadingDidStop() {
+        if currentImageLoadingTaskCount > 0 {
+            currentImageLoadingTaskCount -= 1
+        }
+    }
 }

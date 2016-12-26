@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B5C71061E10AB3700E02351 /* ImageCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5C71051E10AB3700E02351 /* ImageCollectionViewCellDelegate.swift */; };
 		2B7C133E1DF3A256008945BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C133D1DF3A256008945BC /* AppDelegate.swift */; };
 		2B7C13431DF3A256008945BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B7C13411DF3A256008945BC /* Main.storyboard */; };
 		2B7C13481DF3A256008945BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B7C13461DF3A256008945BC /* LaunchScreen.storyboard */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B5C71051E10AB3700E02351 /* ImageCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		2B7C133A1DF3A256008945BC /* ImageBoardBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageBoardBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B7C133D1DF3A256008945BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B7C13421DF3A256008945BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				2B8AA3031DFB97F10036B1B2 /* ImageTagsTableViewController.swift */,
 				2B8AA3091DFBC1500036B1B2 /* WebsiteSwitchingTableViewController.swift */,
 				2BDCA3931DFE9463008FDB71 /* MainTabBarController.swift */,
+				2B5C71051E10AB3700E02351 /* ImageCollectionViewCellDelegate.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				2B8AA3041DFB97F10036B1B2 /* ImageTagsTableViewController.swift in Sources */,
 				2B7C137F1DF3F665008945BC /* SearchImageCollectionCollectionViewCell.swift in Sources */,
 				2B7C13771DF3C3CE008945BC /* ImageCollectionViewCell.swift in Sources */,
+				2B5C71061E10AB3700E02351 /* ImageCollectionViewCellDelegate.swift in Sources */,
 				2B8AA3021DFB8ED10036B1B2 /* ImageInfoTableViewController.swift in Sources */,
 				2B9A295A1E0CF36200D24DE2 /* UIview+LoadingIndicatorViewExtension.swift in Sources */,
 				2B7C137D1DF3EF7A008945BC /* SearchViewController.swift in Sources */,

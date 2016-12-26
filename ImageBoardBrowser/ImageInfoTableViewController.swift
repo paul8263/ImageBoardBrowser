@@ -40,7 +40,7 @@ class ImageInfoTableViewController: UITableViewController {
         tableView.tableFooterView = UIView()
     }
     
-    func displayData() {
+    private func displayData() {
         previewImageView.sd_setImage(with: imageInfo.getPreviewURL())
         authorLabel.text = imageInfo.author
         scoreLabel.text = "\(imageInfo.score)"
