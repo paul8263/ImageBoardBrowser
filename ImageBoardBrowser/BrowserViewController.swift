@@ -48,21 +48,31 @@ class BrowserViewController: UIViewController {
             self.hideLoadingIndicatorView()
             otherOperation?()
         }, failureHandler: {(error) in
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                self.hideLoadingIndicatorView()
-                self.showNetworkErrorAlertController()
-            }
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.hideLoadingIndicatorView()
+            self.showNetworkErrorAlertController()
         })
     }
     
     @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
+        prepareForRefresh()
         
-        pagesLoaded = 1
-        self.imageInfoList = []
-        loadData { 
+        loadData {
             if self.imageInfoList.count != 0 {
                 self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
+            }
+        }
+    }
+    
+    private func prepareForRefresh() {
+        pagesLoaded = 1
+        imageInfoList = []
+        currentImageLoadingTaskCount = 0
+        imageCollectionView.reloadData()
+        
+        for cell in imageCollectionView.visibleCells {
+            if let cell = cell as? ImageCollectionViewCell {
+                cell.forceStopDownloading()
             }
         }
     }

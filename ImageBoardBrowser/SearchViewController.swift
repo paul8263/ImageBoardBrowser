@@ -76,7 +76,6 @@ class SearchViewController: UIViewController {
         
         self.navigationItem.titleView = searchBar
     }
-
     
     // MARK: - Navigation
 
@@ -89,7 +88,6 @@ class SearchViewController: UIViewController {
             singleImageViewController.imageInfo = sender as! ImageInfo
         }
     }
-    
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         searchBar.resignFirstResponder()
@@ -102,32 +100,7 @@ class SearchViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    func performSearch() {
-        pagesLoaded = 1
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        showLoadingIndicatorView()
-        ImageDownloader.downloadImages(withTags: self.searchedTags, withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
-            self.imageInfoList = imageInfoList
-            self.pagesLoaded = self.pagesLoaded + 1
-            self.imageCollectionView.reloadData()
-            DispatchQueue.main.async {
-                self.hideLoadingIndicatorView()
-                if self.imageInfoList.count != 0 {
-                    self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
-                    self.navigationController?.hidesBarsOnSwipe = true
-                } else {
-                    self.navigationController?.hidesBarsOnSwipe = false
-                }
-            }
-        }, failureHandler: {(error) in
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                self.hideLoadingIndicatorView()
-                self.showNetworkErrorAlertController()
-            }
-        })
-    }
-    fileprivate func loadMoreData() {
+    private func loadData(withOtherOperation otherOperation: (() -> Void)?) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         showLoadingIndicatorView()
         ImageDownloader.downloadImages(withTags: self.searchedTags, withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
@@ -135,13 +108,43 @@ class SearchViewController: UIViewController {
             self.pagesLoaded = self.pagesLoaded + 1
             self.imageCollectionView.reloadData()
             self.hideLoadingIndicatorView()
+            otherOperation?()
         }, failureHandler: {(error) in
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                self.hideLoadingIndicatorView()
-                self.showNetworkErrorAlertController()
-            }
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.hideLoadingIndicatorView()
+            self.showNetworkErrorAlertController()
         })
+    }
+    
+    func performSearch() {
+        prepareForRefresh()
+        
+        loadData {
+            self.hideLoadingIndicatorView()
+            if self.imageInfoList.count != 0 {
+                self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
+                self.navigationController?.hidesBarsOnSwipe = true
+            } else {
+                self.navigationController?.hidesBarsOnSwipe = false
+            }
+        }
+    }
+    
+    private func prepareForRefresh() {
+        pagesLoaded = 1
+        imageInfoList = []
+        currentImageLoadingTaskCount = 0
+        imageCollectionView.reloadData()
+        
+        for cell in imageCollectionView.visibleCells {
+            if let cell = cell as? ImageCollectionViewCell {
+                cell.forceStopDownloading()
+            }
+        }
+    }
+    
+    fileprivate func loadMoreData() {
+        loadData(withOtherOperation: nil)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

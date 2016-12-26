@@ -29,6 +29,11 @@ class ImageCollectionViewCell: UICollectionViewCell {
         hasStartedDownloading = false
     }
     
+    func forceStopDownloading() {
+        imageView.sd_cancelCurrentImageLoad()
+        hasStartedDownloading = false
+    }
+    
     func loadImage(url: URL) {
         delegate?.imageLoadingWillStart()
         hasStartedDownloading = true
