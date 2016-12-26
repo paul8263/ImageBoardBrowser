@@ -8,6 +8,8 @@
 
 import UIKit
 
+private let reusableIdentifier = "ImageCollectionViewCell"
+
 class SearchViewController: UIViewController {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -42,6 +44,7 @@ class SearchViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setUpSearchBar()
+        imageCollectionView.register(UINib(nibName: "ImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reusableIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -167,7 +170,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchImageCollectionViewCell", for: indexPath) as! SearchImageCollectionCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusableIdentifier, for: indexPath) as! ImageCollectionViewCell
         cell.delegate = self
         cell.loadImage(url: imageInfoList[indexPath.row].getPreviewURL())
         return cell

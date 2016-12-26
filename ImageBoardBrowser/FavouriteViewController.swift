@@ -8,6 +8,8 @@
 
 import UIKit
 
+private let reusableIdentifier = "ImageCollectionViewCell"
+
 class FavouriteViewController: UIViewController {
     var imageInfoList: [ImageInfo] = []
     
@@ -35,6 +37,7 @@ class FavouriteViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        imageCollectionView.register(UINib(nibName: "ImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reusableIdentifier)
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,7 +101,7 @@ extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favouriteImageCollectionViewCell", for: indexPath) as! FavouriteImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusableIdentifier, for: indexPath) as! ImageCollectionViewCell
         cell.delegate = self
         cell.loadImage(url: self.imageInfoList[indexPath.row].getPreviewURL())
         return cell

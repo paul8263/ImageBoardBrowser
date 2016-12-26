@@ -10,6 +10,8 @@ import UIKit
 import AFNetworking
 import SDWebImage
 
+private let reusableIdentifier = "imageCollectionViewCell"
+
 class BrowserViewController: UIViewController {
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
@@ -75,6 +77,7 @@ class BrowserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        imageCollectionView.register(UINib(nibName: "ImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reusableIdentifier)
         let rect = UIScreen.main.bounds
         if rect.height < rect.width {
             self.itemsPerRow = 3
@@ -147,7 +150,7 @@ extension BrowserViewController: UICollectionViewDataSource, UICollectionViewDel
         return imageInfoList.count;
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusableIdentifier, for: indexPath) as! ImageCollectionViewCell
         cell.delegate = self
         cell.loadImage(url: self.imageInfoList[indexPath.row].getPreviewURL())
         return cell
