@@ -36,8 +36,8 @@ class SingleImageViewController: UIViewController {
     @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     
-    
     @IBOutlet weak var imageLoadingIndicator: UIActivityIndicatorView!
+    
     @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
 
         performSegue(withIdentifier: "showImageInfo", sender: imageInfo)
@@ -60,16 +60,12 @@ class SingleImageViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
-        perform(#selector(setMinScaleAndCenterImageAfterRotation), with: nil, afterDelay: 0.4)
-    }
-    
-    func setMinScaleAndCenterImageAfterRotation() {
-        UIView.animate(withDuration: 0.3) { 
-            self.setMinZoomScale()
-            self.setImageViewCenterToScrollView()
+        coordinator.animate(alongsideTransition: nil) { (context) in
+            UIView.animate(withDuration: 0.3) {
+                self.setMinZoomScale()
+                self.setImageViewCenterToScrollView()
+            }
         }
-        
     }
     
     override func viewDidLoad() {
