@@ -27,6 +27,20 @@ class ImageTagsTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let tabBarController = tabBarController as? MainTabBarController {
+            tabBarController.panGesture?.isEnabled = false
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let tabBarController = tabBarController as? MainTabBarController {
+            tabBarController.panGesture?.isEnabled = true
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -48,14 +62,31 @@ class ImageTagsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         let tabBarController = self.tabBarController
         
         let navigationController = tabBarController?.viewControllers?[2] as? UINavigationController
-        navigationController?.popToRootViewController(animated: false)
+        _ = navigationController?.popToRootViewController(animated: false)
         let searchViewController = navigationController?.topViewController as! SearchViewController
         searchViewController.searchedTags = imageTagArray[indexPath.row]
         searchViewController.searchBar.text = searchViewController.searchedTags
         searchViewController.performSearch()
         tabBarController?.selectedIndex = 2
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let addToFavouriteAction = UITableViewRowAction(style: .default, title: "Add") { (action, indexPath) in
+            FavouriteStorageHelper.addFavouriteTag(tag: self.imageTagArray[indexPath.row])
+            self.tableView.setEditing(false, animated: true)
+        }
+        addToFavouriteAction.backgroundColor = UIColor.orange
+        return [addToFavouriteAction]
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
     }
 }

@@ -46,7 +46,13 @@
                             <constraint firstItem="B9e-hv-vTp" firstAttribute="top" secondItem="GHR-T5-fXH" secondAttribute="top" id="l9i-aR-88q"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Favourite" id="mEH-Gu-NeR"/>
+                    <navigationItem key="navigationItem" title="Favourite" id="mEH-Gu-NeR">
+                        <barButtonItem key="rightBarButtonItem" title="Tags" id="i90-LW-oMT">
+                            <connections>
+                                <segue destination="vkT-pN-Hjv" kind="show" id="kbu-XU-bzs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="imageCollectionView" destination="B9e-hv-vTp" id="CjS-Mk-JGJ"/>
                         <segue destination="LL4-JA-eic" kind="show" identifier="showImageFromFavourite" id="geY-OM-uWh"/>
@@ -55,6 +61,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WZ6-k6-qFh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1414.4927536231885" y="198.91304347826087"/>
+        </scene>
+        <!--Favourite Tags-->
+        <scene sceneID="m1v-zE-Nvm">
+            <objects>
+                <tableViewController id="vkT-pN-Hjv" customClass="FavouriteTagsTableViewController" customModule="ImageBoardBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="WGA-ep-f0S">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="FavouriteTagCell" textLabel="hIA-Kv-Soh" style="IBUITableViewCellStyleDefault" id="8jk-N2-xBc">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8jk-N2-xBc" id="GZx-aC-gOT">
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hIA-Kv-Soh">
+                                            <rect key="frame" x="15" y="0.0" width="364" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="vkT-pN-Hjv" id="bYz-Uj-fur"/>
+                            <outlet property="delegate" destination="vkT-pN-Hjv" id="sQt-qD-CoX"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Favourite Tags" id="I7C-vQ-Yhw"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pp2-8D-3gr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2101" y="199"/>
         </scene>
         <!--Browse Image-->
         <scene sceneID="vog-kK-7j5">
@@ -202,7 +246,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUI-UV-7N0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2328.985507246377" y="6.5217391304347831"/>
+            <point key="canvasLocation" x="2783" y="7"/>
         </scene>
         <!--Image Info-->
         <scene sceneID="MWP-8P-YiO">
@@ -369,7 +413,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lje-WN-RoJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3092.753623188406" y="6.5217391304347831"/>
+            <point key="canvasLocation" x="3607" y="7"/>
         </scene>
         <!--Tags-->
         <scene sceneID="3QF-iU-GM1">
@@ -380,15 +424,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="imageTagCell" textLabel="E2C-tt-rEj" style="IBUITableViewCellStyleDefault" id="ETx-Ve-yRy">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="imageTagCell" textLabel="E2C-tt-rEj" style="IBUITableViewCellStyleDefault" id="ETx-Ve-yRy">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ETx-Ve-yRy" id="dcH-Gr-dHz">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="367" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="E2C-tt-rEj">
-                                            <rect key="frame" x="15" y="0.0" width="384" height="43.666666666666664"/>
+                                            <rect key="frame" x="15" y="0.0" width="352" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -407,7 +451,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4zX-PR-d8N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3816" y="7"/>
+            <point key="canvasLocation" x="4378" y="7"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="V2s-re-wwy">
@@ -819,6 +863,6 @@
         <image name="Star" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eus-iY-KHI"/>
+        <segue reference="geY-OM-uWh"/>
     </inferredMetricsTieBreakers>
 </document>

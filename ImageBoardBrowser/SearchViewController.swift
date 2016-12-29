@@ -120,7 +120,6 @@ class SearchViewController: UIViewController {
         prepareForRefresh()
         
         loadData {
-            self.hideLoadingIndicatorView()
             if self.imageInfoList.count != 0 {
                 self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
                 self.navigationController?.hidesBarsOnSwipe = true
@@ -134,13 +133,16 @@ class SearchViewController: UIViewController {
         pagesLoaded = 1
         imageInfoList = []
         currentImageLoadingTaskCount = 0
-        imageCollectionView.reloadData()
+        imageCollectionView?.reloadData()
         
-        for cell in imageCollectionView.visibleCells {
-            if let cell = cell as? ImageCollectionViewCell {
-                cell.forceStopDownloading()
+        if imageCollectionView != nil {
+            for cell in imageCollectionView.visibleCells {
+                if let cell = cell as? ImageCollectionViewCell {
+                    cell.forceStopDownloading()
+                }
             }
         }
+        
     }
     
     fileprivate func loadMoreData() {

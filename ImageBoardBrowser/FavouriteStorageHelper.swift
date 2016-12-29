@@ -60,4 +60,28 @@ class FavouriteStorageHelper {
         }
         return false
     }
+    
+    static func addFavouriteTag(tag: String) {
+        if var favouriteTags = UserDefaults.standard.array(forKey: "favouriteTags") as? [String] {
+            if !favouriteTags.contains(tag) {
+                favouriteTags.append(tag)
+                setFavouriteTags(tags: favouriteTags)
+            }
+        } else {
+            let favouriteTags = [tag]
+            setFavouriteTags(tags: favouriteTags)
+        }
+    }
+    
+    static func loadFavouriteTags() -> [String] {
+        if let favouriteTags = UserDefaults.standard.array(forKey: "favouriteTags") as? [String] {
+            return favouriteTags
+        } else {
+            return [String]()
+        }
+    }
+    
+    static func setFavouriteTags(tags: [String]) {
+        UserDefaults.standard.set(tags, forKey: "favouriteTags")
+    }
 }

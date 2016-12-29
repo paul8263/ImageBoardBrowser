@@ -12,27 +12,29 @@ class MainTabBarController: UITabBarController {
     
     var panGesture: UIPanGestureRecognizer?
     
-    var interactiveTransitioning: UIPercentDrivenInteractiveTransition?
-    var isTransitioning = false
+//    var interactiveTransitioning: UIPercentDrivenInteractiveTransition?
+//    var isTransitioning = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         delegate = self
-        setupGestureRecognizer()
+//        setupGestureRecognizer()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+    /*
     func setupGestureRecognizer() {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(swipped(sender:)))
         panGesture?.delegate = self
         view.addGestureRecognizer(panGesture!)
     }
+     */
 
     /*
     // MARK: - Navigation
@@ -44,8 +46,10 @@ class MainTabBarController: UITabBarController {
     }
     */
 
+    /*
     func swipped(sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
+        
         let velocity = sender.velocity(in: view)
         let percent = fabs(translation.x / view.frame.width)
         switch sender.state {
@@ -72,8 +76,9 @@ class MainTabBarController: UITabBarController {
             self.isTransitioning = false
         }
     }
+ */
 }
-
+/*
 extension MainTabBarController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let gesture = gestureRecognizer as? UIPanGestureRecognizer {
@@ -89,15 +94,18 @@ extension MainTabBarController: UIGestureRecognizerDelegate {
         return false
     }
 }
+*/
 
 extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
     }
     
+    /*
     func tabBarController(_ tabBarController: UITabBarController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return isTransitioning ? self.interactiveTransitioning : nil
     }
+     */
 }
 
 extension MainTabBarController: UIViewControllerAnimatedTransitioning {
