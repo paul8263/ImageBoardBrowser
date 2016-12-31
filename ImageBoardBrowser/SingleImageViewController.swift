@@ -120,11 +120,13 @@ class SingleImageViewController: UIViewController {
         case .sample:
             requestImageAction = UIAlertAction(title: "Request Larger Image", style: UIAlertActionStyle.default, handler: { (action) in
                 self.typeOfImagePresented = .jpeg
+                self.cancelLoadImage()
                 self.loadImage(withURL: self.imageInfo.getJpegURL())
             })
         case .jpeg:
             requestImageAction = UIAlertAction(title: "Request Sample Image", style: UIAlertActionStyle.default, handler: { (action) in
                 self.typeOfImagePresented = .sample
+                self.cancelLoadImage()
                 self.loadImage(withURL: self.imageInfo.getSampleURL())
             })
         }
@@ -218,6 +220,8 @@ class SingleImageViewController: UIViewController {
     
     func cancelLoadImage() {
         self.imageView.sd_cancelCurrentImageLoad()
+        loadingProgressView.setProgress(0.0, animated: false)
+        loadingProgressView.isHidden = true
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         imageLoadingIndicator.stopAnimating()
     }
