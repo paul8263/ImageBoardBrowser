@@ -30,10 +30,12 @@ class SearchViewController: UIViewController {
     
     var searchedTags = ""
     
-    let spacing = 10
-    var itemsPerRow = 2 {
-        didSet {
-            imageCollectionView?.collectionViewLayout.invalidateLayout()
+    var numberOfColumns: Int {
+        set {
+            (imageCollectionView.collectionViewLayout as! PZImageBoardCollectionViewLayout).numberOfColumn = newValue
+        }
+        get {
+            return (imageCollectionView.collectionViewLayout as! PZImageBoardCollectionViewLayout).numberOfColumn
         }
     }
     
@@ -45,6 +47,33 @@ class SearchViewController: UIViewController {
         // Do any additional setup after loading the view.
         setUpSearchBar()
         imageCollectionView.register(UINib(nibName: "ImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reusableIdentifier)
+        
+        setupCollectionViewLayout()
+        setNumberOfColumnsAfterScreenRotation()
+    }
+    
+    private func setupCollectionViewLayout() {
+        let layout = PZImageBoardCollectionViewLayout()
+        layout.cellMargin = 10
+        layout.contentWidth = view.frame.width
+        imageCollectionView.collectionViewLayout = layout
+    }
+    
+    private func setNumberOfColumnsAfterScreenRotation() {
+        if let layout = imageCollectionView?.collectionViewLayout as? PZImageBoardCollectionViewLayout {
+            let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+            layout.contentWidth = view.frame.width
+            let orientation = UIApplication.shared.statusBarOrientation
+            switch orientation {
+            case .portrait:
+                numberOfColumns = isIpad ? 3 : 2
+            case .landscapeLeft, .landscapeRight:
+                numberOfColumns = 3
+            default:
+                numberOfColumns = isIpad ? 3 : 2
+            }
+            imageCollectionView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,16 +81,7 @@ class SearchViewController: UIViewController {
         if self.imageInfoList.count != 0 {
             self.navigationController?.hidesBarsOnSwipe = true
         }
-        reorderCollectionViewOnRotation()
-    }
-    
-    private func reorderCollectionViewOnRotation() {
-        let rect = UIScreen.main.bounds
-        if rect.height > rect.width {
-            self.itemsPerRow = 2
-        } else {
-            self.itemsPerRow = 3
-        }
+        setNumberOfColumnsAfterScreenRotation()
     }
 
     override func didReceiveMemoryWarning() {
@@ -120,12 +140,7 @@ class SearchViewController: UIViewController {
         prepareForRefresh()
         
         loadData {
-            if self.imageInfoList.count != 0 {
-                self.imageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
-                self.navigationController?.hidesBarsOnSwipe = true
-            } else {
-                self.navigationController?.hidesBarsOnSwipe = false
-            }
+            self.navigationController?.hidesBarsOnSwipe = self.imageInfoList.count != 0
         }
     }
     
@@ -151,11 +166,10 @@ class SearchViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        let rect = UIScreen.main.bounds
-        if rect.height > rect.width {
-            self.itemsPerRow = 3
-        } else {
-            self.itemsPerRow = 2
+        
+        coordinator.animate(alongsideTransition: nil) { (context) in
+            self.setNumberOfColumnsAfterScreenRotation()
+            self.centerLoadingIndicatorView()
         }
     }
 }
@@ -170,28 +184,22 @@ extension SearchViewController: UISearchBarDelegate {
     }
 }
 
-extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusableIdentifier, for: indexPath) as! ImageCollectionViewCell
         cell.delegate = self
         cell.loadImage(url: imageInfoList[indexPath.row].getPreviewURL())
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageInfoList.count
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width - CGFloat(spacing * (itemsPerRow + 1))) / CGFloat(itemsPerRow)
-        return CGSize(width: width, height: width / 1.6)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: CGFloat(spacing), left: CGFloat(spacing), bottom: CGFloat(spacing), right: CGFloat(spacing))
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == imageInfoList.count - 1 {
             loadMoreData()
@@ -200,6 +208,15 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showImageFromSearch", sender: imageInfoList[indexPath.row])
+    }
+}
+
+extension SearchViewController: PZImageBoardCollectionViewLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, heightForCellAtIndexPath indexPath: IndexPath) -> CGFloat {
+        let imageInfo = imageInfoList[indexPath.row]
+        let ratio: CGFloat = CGFloat(imageInfo.actualPreviewHeight) / CGFloat(imageInfo.actualPreviewWidth)
+        let columnWidth = (layout as! PZImageBoardCollectionViewLayout).columnWidth
+        return columnWidth * ratio
     }
 }
 

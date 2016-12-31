@@ -25,11 +25,12 @@ class FavouriteViewController: UIViewController {
         }
     }
     
-    let spacing = 10
-    
-    var itemsPerRow = 2 {
-        didSet {
-            imageCollectionView?.collectionViewLayout.invalidateLayout()
+    var numberOfColumns: Int {
+        set {
+            (imageCollectionView.collectionViewLayout as! PZImageBoardCollectionViewLayout).numberOfColumn = newValue
+        }
+        get {
+            return (imageCollectionView.collectionViewLayout as! PZImageBoardCollectionViewLayout).numberOfColumn
         }
     }
 
@@ -38,6 +39,32 @@ class FavouriteViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         imageCollectionView.register(UINib(nibName: "ImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reusableIdentifier)
+        setupCollectionViewLayout()
+        setNumberOfColumnsAfterScreenRotation()
+    }
+    
+    private func setupCollectionViewLayout() {
+        let layout = PZImageBoardCollectionViewLayout()
+        layout.cellMargin = 10
+        layout.contentWidth = view.frame.width
+        imageCollectionView.collectionViewLayout = layout
+    }
+    
+    private func setNumberOfColumnsAfterScreenRotation() {
+        if let layout = imageCollectionView?.collectionViewLayout as? PZImageBoardCollectionViewLayout {
+            let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+            layout.contentWidth = view.frame.width
+            let orientation = UIApplication.shared.statusBarOrientation
+            switch orientation {
+            case .portrait:
+                numberOfColumns = isIpad ? 3 : 2
+            case .landscapeLeft, .landscapeRight:
+                numberOfColumns = 3
+            default:
+                numberOfColumns = isIpad ? 3 : 2
+            }
+            imageCollectionView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,16 +78,7 @@ class FavouriteViewController: UIViewController {
         if self.imageInfoList.count != 0 {
             self.navigationController?.hidesBarsOnSwipe = true
         }
-        reorderCollectionViewOnRotation()
-    }
-    
-    private func reorderCollectionViewOnRotation() {
-        let rect = UIScreen.main.bounds
-        if rect.height > rect.width {
-            self.itemsPerRow = 2
-        } else {
-            self.itemsPerRow = 3
-        }
+        setNumberOfColumnsAfterScreenRotation()
     }
     
     private func loadData() {
@@ -70,11 +88,10 @@ class FavouriteViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        let rect = UIScreen.main.bounds
-        if rect.height > rect.width {
-            self.itemsPerRow = 3
-        } else {
-            self.itemsPerRow = 2
+        
+        coordinator.animate(alongsideTransition: nil) { (context) in
+            self.setNumberOfColumnsAfterScreenRotation()
+            self.centerLoadingIndicatorView()
         }
     }
     
@@ -91,7 +108,7 @@ class FavouriteViewController: UIViewController {
     }
 }
 
-extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1;
     }
@@ -107,19 +124,18 @@ extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewD
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width - CGFloat(spacing * (itemsPerRow + 1))) / CGFloat(itemsPerRow)
-        return CGSize(width: width, height: width / 1.6)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: CGFloat(spacing), left: CGFloat(spacing), bottom: CGFloat(spacing), right: CGFloat(spacing))
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showImageFromFavourite", sender: imageInfoList[indexPath.row])
     }
-    
+}
+
+extension FavouriteViewController: PZImageBoardCollectionViewLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, heightForCellAtIndexPath indexPath: IndexPath) -> CGFloat {
+        let imageInfo = imageInfoList[indexPath.row]
+        let ratio: CGFloat = CGFloat(imageInfo.actualPreviewHeight) / CGFloat(imageInfo.actualPreviewWidth)
+        let columnWidth = (layout as! PZImageBoardCollectionViewLayout).columnWidth
+        return columnWidth * ratio
+    }
 }
 
 extension FavouriteViewController: ImageCollectionViewCellDelegate {
