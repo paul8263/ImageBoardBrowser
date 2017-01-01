@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 private let reusableIdentifier = "ImageCollectionViewCell"
 
@@ -15,15 +16,7 @@ class FavouriteViewController: UIViewController {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
-    var currentImageLoadingTaskCount = 0 {
-        didSet {
-            if currentImageLoadingTaskCount == 0 {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            } else {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            }
-        }
-    }
+    let activityIndicatorManager = AFNetworkActivityIndicatorManager.shared()
     
     var numberOfColumns: Int {
         set {
@@ -140,12 +133,10 @@ extension FavouriteViewController: PZImageBoardCollectionViewLayoutDelegate {
 
 extension FavouriteViewController: ImageCollectionViewCellDelegate {
     func imageLoadingWillStart() {
-        currentImageLoadingTaskCount += 1
+        activityIndicatorManager.incrementActivityCount()
     }
     
     func imageLoadingDidStop() {
-        if currentImageLoadingTaskCount > 0 {
-            currentImageLoadingTaskCount -= 1
-        }
+        activityIndicatorManager.decrementActivityCount()
     }
 }

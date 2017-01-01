@@ -16,18 +16,9 @@ class BrowserViewController: UIViewController {
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
     let reachabilityManager = AFNetworkReachabilityManager.shared()
+    let activityIndicatorManager = AFNetworkActivityIndicatorManager.shared()
     
     var imageInfoList: [ImageInfo] = []
-    
-    var currentImageLoadingTaskCount = 0 {
-        didSet {
-            if currentImageLoadingTaskCount == 0 {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            } else {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            }
-        }
-    }
     
     var numberOfColumns: Int {
         set {
@@ -69,7 +60,6 @@ class BrowserViewController: UIViewController {
     private func prepareForRefresh() {
         pagesLoaded = 1
         imageInfoList = []
-        currentImageLoadingTaskCount = 0
         imageCollectionView.reloadData()
         
         for cell in imageCollectionView.visibleCells {
@@ -206,13 +196,11 @@ extension BrowserViewController: PZImageBoardCollectionViewLayoutDelegate {
 
 extension BrowserViewController: ImageCollectionViewCellDelegate {
     func imageLoadingWillStart() {
-        currentImageLoadingTaskCount += 1
+        activityIndicatorManager.incrementActivityCount()
     }
     
     func imageLoadingDidStop() {
-        if currentImageLoadingTaskCount > 0 {
-            currentImageLoadingTaskCount -= 1
-        }
+        activityIndicatorManager.decrementActivityCount()
     }
 }
 

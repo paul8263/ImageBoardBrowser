@@ -16,18 +16,9 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
     let reachabilityManager = AFNetworkReachabilityManager.shared()
+    let activityIndicatorManager = AFNetworkActivityIndicatorManager.shared()
     
     var imageInfoList: [ImageInfo] = []
-    
-    var currentImageLoadingTaskCount = 0 {
-        didSet {
-            if currentImageLoadingTaskCount == 0 {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            } else {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            }
-        }
-    }
     
     var pagesLoaded = 1
     
@@ -152,7 +143,6 @@ class SearchViewController: UIViewController {
     private func prepareForRefresh() {
         pagesLoaded = 1
         imageInfoList = []
-        currentImageLoadingTaskCount = 0
         imageCollectionView?.reloadData()
         
         if imageCollectionView != nil {
@@ -231,12 +221,10 @@ extension SearchViewController: PZImageBoardCollectionViewLayoutDelegate {
 
 extension SearchViewController: ImageCollectionViewCellDelegate {
     func imageLoadingWillStart() {
-        currentImageLoadingTaskCount += 1
+        activityIndicatorManager.incrementActivityCount()
     }
     
     func imageLoadingDidStop() {
-        if currentImageLoadingTaskCount > 0 {
-            currentImageLoadingTaskCount -= 1
-        }
+        activityIndicatorManager.decrementActivityCount()
     }
 }
