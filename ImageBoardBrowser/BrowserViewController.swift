@@ -15,6 +15,8 @@ private let reusableIdentifier = "imageCollectionViewCell"
 class BrowserViewController: UIViewController {
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
+    let reachabilityManager = AFNetworkReachabilityManager.shared()
+    
     var imageInfoList: [ImageInfo] = []
     
     var currentImageLoadingTaskCount = 0 {
@@ -51,7 +53,9 @@ class BrowserViewController: UIViewController {
         }, failureHandler: {(error) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.hideLoadingIndicatorView()
-            self.showNetworkErrorAlertController()
+            if !self.reachabilityManager.isReachable {
+                self.showNetworkErrorAlertController()
+            }
         })
     }
     
@@ -75,7 +79,7 @@ class BrowserViewController: UIViewController {
         }
     }
     
-    private func showNetworkErrorAlertController() {
+    fileprivate func showNetworkErrorAlertController() {
         let alertController = UIAlertController(title: "No Network", message: "Please connect your device to network", preferredStyle: UIAlertControllerStyle.alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
@@ -178,7 +182,11 @@ extension BrowserViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == imageInfoList.count - 1 {
-            loadMoreData()
+            if reachabilityManager.isReachable {
+                loadMoreData()
+            } else {
+                showNetworkErrorAlertController()
+            }
         }
     }
     

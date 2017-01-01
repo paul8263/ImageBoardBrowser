@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import AFNetworking
 
 enum TypeOfImagePresented {
     case sample
@@ -15,7 +16,6 @@ enum TypeOfImagePresented {
 }
 
 class SingleImageViewController: UIViewController {
-    
     
     var imageInfo: ImageInfo!
     
@@ -145,8 +145,18 @@ class SingleImageViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.hidesBarsOnSwipe = false
         self.tagsLabel.text = imageInfo.tags
-        
-        loadImage(withURL: imageInfo.getSampleURL())
+        if AFNetworkReachabilityManager.shared().isReachable {
+            loadImage(withURL: imageInfo.getSampleURL())
+        } else {
+            showNetworkErrorAlertController()
+        }
+    }
+    
+    private func showNetworkErrorAlertController() {
+        let alertController = UIAlertController(title: "No Network", message: "Please connect your device to network", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     override func viewWillLayoutSubviews() {

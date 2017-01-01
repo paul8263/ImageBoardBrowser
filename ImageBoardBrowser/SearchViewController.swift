@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import AFNetworking
 
 private let reusableIdentifier = "ImageCollectionViewCell"
 
 class SearchViewController: UIViewController {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
+    
+    let reachabilityManager = AFNetworkReachabilityManager.shared()
     
     var imageInfoList: [ImageInfo] = []
     
@@ -113,7 +116,7 @@ class SearchViewController: UIViewController {
         searchBar.resignFirstResponder()
     }
     
-    private func showNetworkErrorAlertController() {
+    fileprivate func showNetworkErrorAlertController() {
         let alertController = UIAlertController(title: "No Network", message: "Please connect your device to network", preferredStyle: UIAlertControllerStyle.alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
@@ -132,7 +135,9 @@ class SearchViewController: UIViewController {
         }, failureHandler: {(error) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.hideLoadingIndicatorView()
-            self.showNetworkErrorAlertController()
+            if !self.reachabilityManager.isReachable {
+                self.showNetworkErrorAlertController()
+            }
         })
     }
     
@@ -202,7 +207,11 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == imageInfoList.count - 1 {
-            loadMoreData()
+            if reachabilityManager.isReachable {
+                loadMoreData()
+            } else {
+                showNetworkErrorAlertController()
+            }
         }
     }
     
