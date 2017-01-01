@@ -37,6 +37,7 @@ class FavouriteStorageHelper {
         for i in 0 ..< imageInfoList.count {
             if imageInfoList[i].id == imageInfo.id {
                 imageInfoList.remove(at: i)
+                break
             }
         }
         setFavouriteList(imageInfoList: imageInfoList)
