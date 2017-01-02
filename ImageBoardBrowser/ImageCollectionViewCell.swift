@@ -9,6 +9,11 @@
 import UIKit
 import SDWebImage
 
+protocol ImageCollectionViewCellDelegate: class {
+    func imageLoadingWillStart()
+    func imageLoadingDidStop()
+}
+
 class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     

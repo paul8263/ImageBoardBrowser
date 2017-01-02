@@ -115,7 +115,6 @@ class SearchViewController: UIViewController {
     }
     
     private func loadData(withOtherOperation otherOperation: (() -> Void)?) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         showLoadingIndicatorView()
         ImageDownloader.downloadImages(withTags: self.searchedTags, withPage: pagesLoaded, completionHandler: {(imageInfoList) -> Void in
             self.imageInfoList += imageInfoList
@@ -124,9 +123,9 @@ class SearchViewController: UIViewController {
             self.hideLoadingIndicatorView()
             otherOperation?()
         }, failureHandler: {(error) in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.hideLoadingIndicatorView()
             if !self.reachabilityManager.isReachable {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 self.showNetworkErrorAlertController()
             }
         })
@@ -134,7 +133,6 @@ class SearchViewController: UIViewController {
     
     func performSearch() {
         prepareForRefresh()
-        
         loadData {
             self.navigationController?.hidesBarsOnSwipe = self.imageInfoList.count != 0
         }
@@ -152,7 +150,6 @@ class SearchViewController: UIViewController {
                 }
             }
         }
-        
     }
     
     fileprivate func loadMoreData() {

@@ -40,7 +40,7 @@ class WebsiteSwitchingTableViewController: UITableViewController {
         } else if indexPath.section == 0 && indexPath.row == 1 {
             SettingsHelper.setWebsite(website: .Yande)
         }
-        navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

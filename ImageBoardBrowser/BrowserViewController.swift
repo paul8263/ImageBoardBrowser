@@ -32,7 +32,6 @@ class BrowserViewController: UIViewController {
     var pagesLoaded = 1
     
     private func loadData(withOtherOperation otherOperation: (() -> Void)?) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         self.showLoadingIndicatorView()
         ImageDownloader.downloadImages(withPage: pagesLoaded, completionHandler: {(downloadedImageInfoList) -> Void in
             self.imageInfoList += downloadedImageInfoList
@@ -41,10 +40,10 @@ class BrowserViewController: UIViewController {
             self.navigationController?.hidesBarsOnSwipe = true
             self.hideLoadingIndicatorView()
             otherOperation?()
-        }, failureHandler: {(error) in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }, failureHandler: {(error) in            
             self.hideLoadingIndicatorView()
             if !self.reachabilityManager.isReachable {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 self.showNetworkErrorAlertController()
             }
         })
@@ -52,8 +51,6 @@ class BrowserViewController: UIViewController {
     
     @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
         prepareForRefresh()
-        
-        imageCollectionView.collectionViewLayout.invalidateLayout()
         loadData(withOtherOperation: nil)
     }
     
