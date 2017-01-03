@@ -23,7 +23,36 @@ class SingleImageViewController: UIViewController {
     
     var typeOfImagePresented: TypeOfImagePresented = .sample
     
-    var isShowingUI: Bool = true
+    var isShowingUI: Bool = true {
+        willSet {
+            if newValue {
+                self.navigationController?.navigationBar.isHidden = false
+                self.tabBarController?.tabBar.isHidden = false
+                view.bringSubview(toFront: tagsLabelVisualEffectView)
+                view.bringSubview(toFront: tagsLabel)
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.navigationController?.navigationBar.alpha = 1
+                    self.tabBarController?.tabBar.alpha = 1
+                    self.tagsLabel.alpha = 1
+                    
+                    self.tagsLabelVisualEffectView.alpha = 1
+                })
+            } else {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.navigationController?.navigationBar.alpha = 0
+                    self.tabBarController?.tabBar.alpha = 0
+                    self.tagsLabel.alpha = 0
+                    
+                    self.tagsLabelVisualEffectView.alpha = 0
+                    
+                }) { (finished) in
+                    self.navigationController?.navigationBar.isHidden = true
+                    self.tabBarController?.tabBar.isHidden = true
+                    self.view.bringSubview(toFront: self.scrollView)
+                }
+            }
+        }
+    }
     
     var isZoomedMax: Bool {
         return scrollView.zoomScale == scrollView.maximumZoomScale
@@ -114,33 +143,6 @@ class SingleImageViewController: UIViewController {
     
     func tapGestureTriggered(sender: UITapGestureRecognizer) {
         isShowingUI = !isShowingUI
-        
-        if isShowingUI {
-            self.navigationController?.navigationBar.isHidden = false
-            self.tabBarController?.tabBar.isHidden = false
-            view.bringSubview(toFront: tagsLabelVisualEffectView)
-            view.bringSubview(toFront: tagsLabel)
-            UIView.animate(withDuration: 0.5, animations: {
-                self.navigationController?.navigationBar.alpha = 1
-                self.tabBarController?.tabBar.alpha = 1
-                self.tagsLabel.alpha = 1
-                
-                self.tagsLabelVisualEffectView.alpha = 1
-            })
-        } else {
-            UIView.animate(withDuration: 0.5, animations: {
-                self.navigationController?.navigationBar.alpha = 0
-                self.tabBarController?.tabBar.alpha = 0
-                self.tagsLabel.alpha = 0
-                
-                self.tagsLabelVisualEffectView.alpha = 0
-                
-            }) { (finished) in
-                self.navigationController?.navigationBar.isHidden = true
-                self.tabBarController?.tabBar.isHidden = true
-                self.view.bringSubview(toFront: self.scrollView)
-            }
-        }
     }
     
     func doubleTapGestureTriggered(sender: UITapGestureRecognizer) {
@@ -200,6 +202,7 @@ class SingleImageViewController: UIViewController {
         } else {
             showNetworkErrorAlertController()
         }
+        isShowingUI = true
     }
     
     private func showNetworkErrorAlertController() {
