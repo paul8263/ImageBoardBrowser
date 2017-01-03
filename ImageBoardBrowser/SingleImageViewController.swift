@@ -23,19 +23,17 @@ class SingleImageViewController: UIViewController {
     
     var typeOfImagePresented: TypeOfImagePresented = .sample
     
+    var isShowingUI: Bool = true
+    
+    var isZoomedMax: Bool {
+        return scrollView.zoomScale == scrollView.maximumZoomScale
+    }
+    
+    var imageView = UIImageView()
+    
     @IBOutlet weak var tagsLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var loadingProgressView: UIProgressView!
-    
-    @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var imageLoadingIndicator: UIActivityIndicatorView!
     
     @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
@@ -72,14 +70,30 @@ class SingleImageViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.scrollView.minimumZoomScale = 1.0
-        self.scrollView.maximumZoomScale = 5.0
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 1.5
+        imageView.contentMode = .scaleAspectFit
+        scrollView.addSubview(imageView)
         
-        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
-        self.scrollView.addGestureRecognizer(longPressGestureRecognizer)
+        setupGestureRecognizers()
         
         imageLoadingIndicator.isHidden = false
         imageLoadingIndicator.hidesWhenStopped = true
+    }
+    
+    func setupGestureRecognizers() {
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
+        self.scrollView.addGestureRecognizer(longPressGestureRecognizer)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapGestureTriggered(sender:)))
+        self.scrollView.addGestureRecognizer(tapGestureRecognizer)
+        
+        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTapGestureTriggered(sender:)))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        self.scrollView.addGestureRecognizer(doubleTapGestureRecognizer)
+        
+//        Double tap gesture will not trigger single tap
+        tapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
     }
     
     func longPressed(sender: UILongPressGestureRecognizer) {
@@ -93,6 +107,42 @@ class SingleImageViewController: UIViewController {
                     }
                 }
                 present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func tapGestureTriggered(sender: UITapGestureRecognizer) {
+        isShowingUI = !isShowingUI
+        
+        if isShowingUI {
+            view.bringSubview(toFront: tagsLabel)
+            self.navigationController?.navigationBar.isHidden = false
+            self.tabBarController?.tabBar.isHidden = false
+            view.bringSubview(toFront: tagsLabel)
+            UIView.animate(withDuration: 0.5, animations: {
+                self.navigationController?.navigationBar.alpha = 1
+                self.tabBarController?.tabBar.alpha = 1
+                self.tagsLabel.alpha = 1
+            })
+        } else {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.navigationController?.navigationBar.alpha = 0
+                self.tabBarController?.tabBar.alpha = 0
+                self.tagsLabel.alpha = 0
+            }) { (finished) in
+                self.navigationController?.navigationBar.isHidden = true
+                self.tabBarController?.tabBar.isHidden = true
+                self.view.bringSubview(toFront: self.scrollView)
+            }
+        }
+    }
+    
+    func doubleTapGestureTriggered(sender: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.5) { 
+            if self.isZoomedMax {
+                self.scrollView.zoomScale = self.scrollView.minimumZoomScale
+            } else {
+                self.scrollView.zoomScale = self.scrollView.maximumZoomScale
             }
         }
     }
@@ -159,47 +209,42 @@ class SingleImageViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        setImageViewSizeConstraint()
-        setMinZoomScale()
-        setImageViewCenterToScrollView()
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelLoadImage()
     }
     
-    private func setImageViewSizeConstraint() {
+    private func setImageViewSize() {
         switch typeOfImagePresented {
         case .sample:
-            imageViewHeightConstraint.constant = CGFloat(imageInfo.sampleHeight)
-            imageViewWidthConstraint.constant = CGFloat(imageInfo.sampleWidth)
+            imageView.bounds.size = CGSize(width: imageInfo.sampleWidth, height: imageInfo.sampleHeight)
         case .jpeg:
-            imageViewHeightConstraint.constant = CGFloat(imageInfo.jpegHeight)
-            imageViewWidthConstraint.constant = CGFloat(imageInfo.jpegWidth)
+            imageView.bounds.size = CGSize(width: imageInfo.jpegWidth, height: imageInfo.jpegHeight)
         }
+        imageView.frame.origin = CGPoint.zero
+        scrollView.contentSize = imageView.bounds.size
         view.layoutIfNeeded()
     }
     
     private func setMinZoomScale() {
-        let widthScale = scrollView.bounds.width / imageViewWidthConstraint.constant
-        let heightScale = scrollView.bounds.height / imageViewHeightConstraint.constant
+        let widthScale = scrollView.bounds.width / imageView.bounds.width
+        let heightScale = scrollView.bounds.height / imageView.bounds.height
         let minScale = min(widthScale, heightScale)
+        
         scrollView.minimumZoomScale = minScale
-        scrollView.zoomScale = minScale
+        scrollView.setZoomScale(minScale, animated: false)
     }
  
     fileprivate func setImageViewCenterToScrollView() {
-        
         let x = max(0, (scrollView.bounds.width - imageView.frame.width) / 2)
-        imageViewTrailingConstraint.constant = x
-        imageViewLeadingConstraint.constant = x
         let y = max(0, (scrollView.bounds.height - imageView.frame.height) / 2)
-        imageViewTopConstraint.constant = y
-        imageViewBottomConstraint.constant = y
-        view.layoutIfNeeded()        
+        
+        scrollView.contentInset = UIEdgeInsets(top: y, left: x, bottom: y, right: x)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setImageViewCenterToScrollView()
     }
     
     func loadImage(withURL url: URL) {
@@ -209,9 +254,12 @@ class SingleImageViewController: UIViewController {
         loadingProgressView.setProgress(0, animated: false)
         alertController = createAlertController()
         
+        setImageViewSize()
+        setMinZoomScale()
+        
         self.imageView.sd_setImage(
             with: url,
-            placeholderImage: UIImage(named: "placeholder"),
+            placeholderImage: UIImage(named: "placeholder")!,
             options: SDWebImageOptions.allowInvalidSSLCertificates,
             progress: { (finished, expected) in
                 DispatchQueue.main.async {
@@ -220,11 +268,10 @@ class SingleImageViewController: UIViewController {
                 }
         },
             completed: { void in
-                DispatchQueue.main.async {
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    self.loadingProgressView.isHidden = true
-                    self.imageLoadingIndicator.stopAnimating()
-                }
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.loadingProgressView.isHidden = true
+                self.imageLoadingIndicator.stopAnimating()
+                
         })
     }
     
@@ -260,6 +307,7 @@ extension SingleImageViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        print(scrollView.zoomScale)
         setImageViewCenterToScrollView()
     }
 }
