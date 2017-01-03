@@ -34,10 +34,11 @@ class SingleImageViewController: UIViewController {
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var loadingProgressView: UIProgressView!
-    @IBOutlet weak var imageLoadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var imageLoadingIndicator: UIActivityIndicatorView!    
+    
+    @IBOutlet weak var tagsLabelVisualEffectView: UIVisualEffectView!
     
     @IBAction func rightBarButtonItemTouched(_ sender: UIBarButtonItem) {
-
         performSegue(withIdentifier: "showImageInfo", sender: imageInfo)
     }
     
@@ -115,20 +116,25 @@ class SingleImageViewController: UIViewController {
         isShowingUI = !isShowingUI
         
         if isShowingUI {
-            view.bringSubview(toFront: tagsLabel)
             self.navigationController?.navigationBar.isHidden = false
             self.tabBarController?.tabBar.isHidden = false
+            view.bringSubview(toFront: tagsLabelVisualEffectView)
             view.bringSubview(toFront: tagsLabel)
             UIView.animate(withDuration: 0.5, animations: {
                 self.navigationController?.navigationBar.alpha = 1
                 self.tabBarController?.tabBar.alpha = 1
                 self.tagsLabel.alpha = 1
+                
+                self.tagsLabelVisualEffectView.alpha = 1
             })
         } else {
             UIView.animate(withDuration: 0.5, animations: {
                 self.navigationController?.navigationBar.alpha = 0
                 self.tabBarController?.tabBar.alpha = 0
                 self.tagsLabel.alpha = 0
+                
+                self.tagsLabelVisualEffectView.alpha = 0
+                
             }) { (finished) in
                 self.navigationController?.navigationBar.isHidden = true
                 self.tabBarController?.tabBar.isHidden = true
@@ -138,13 +144,7 @@ class SingleImageViewController: UIViewController {
     }
     
     func doubleTapGestureTriggered(sender: UITapGestureRecognizer) {
-        UIView.animate(withDuration: 0.5) { 
-            if self.isZoomedMax {
-                self.scrollView.zoomScale = self.scrollView.minimumZoomScale
-            } else {
-                self.scrollView.zoomScale = self.scrollView.maximumZoomScale
-            }
-        }
+        scrollView.setZoomScale(isZoomedMax ? scrollView.minimumZoomScale : scrollView.maximumZoomScale, animated: true)
     }
     
     func createAlertController() -> UIAlertController {
@@ -271,7 +271,6 @@ class SingleImageViewController: UIViewController {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 self.loadingProgressView.isHidden = true
                 self.imageLoadingIndicator.stopAnimating()
-                
         })
     }
     
@@ -307,7 +306,6 @@ extension SingleImageViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        print(scrollView.zoomScale)
         setImageViewCenterToScrollView()
     }
 }

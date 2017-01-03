@@ -79,7 +79,6 @@ class BrowserViewController: UIViewController {
         imageCollectionView.register(UINib(nibName: "ImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reusableIdentifier)
      
         setupCollectionViewLayout()
-        setNumberOfColumnsAfterScreenRotation()
     }
     
     private func setupCollectionViewLayout() {
@@ -92,7 +91,7 @@ class BrowserViewController: UIViewController {
     private func setNumberOfColumnsAfterScreenRotation() {
         if let layout = imageCollectionView?.collectionViewLayout as? PZImageBoardCollectionViewLayout {
             let isIpad = UIDevice.current.userInterfaceIdiom == .pad
-            layout.contentWidth = view.frame.width
+            layout.contentWidth = UIScreen.main.bounds.width
             let orientation = UIApplication.shared.statusBarOrientation
             switch orientation {
             case .portrait:

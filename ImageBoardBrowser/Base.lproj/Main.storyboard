@@ -181,10 +181,21 @@
                                     <constraint firstAttribute="height" constant="20" id="gqu-sw-4lc"/>
                                 </constraints>
                             </activityIndicatorView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JSP-lA-EfU">
+                                <rect key="frame" x="0.0" y="607" width="414" height="80"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="eDi-Dj-gMn">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="l6I-dg-YaA"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cg1-Dl-p2m">
                                 <rect key="frame" x="20" y="607" width="374" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="ydu-UY-SD0"/>
+                                    <constraint firstAttribute="height" constant="80" id="oTC-oj-PX4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -193,18 +204,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="JSP-lA-EfU" secondAttribute="trailing" id="0Fy-vd-TlB"/>
                             <constraint firstItem="mWK-TX-Sq7" firstAttribute="leading" secondItem="PS2-EQ-0Cw" secondAttribute="leading" id="1JS-qd-Imn"/>
                             <constraint firstItem="qpu-GX-MAn" firstAttribute="leading" secondItem="PS2-EQ-0Cw" secondAttribute="leading" id="1mo-nN-gyg"/>
                             <constraint firstItem="mWK-TX-Sq7" firstAttribute="top" secondItem="Lgy-lw-Qas" secondAttribute="bottom" id="4bx-9J-9Nj"/>
                             <constraint firstAttribute="bottom" secondItem="qpu-GX-MAn" secondAttribute="bottom" id="7NX-5s-9wo"/>
-                            <constraint firstItem="cg1-Dl-p2m" firstAttribute="leading" secondItem="PS2-EQ-0Cw" secondAttribute="leadingMargin" id="BTH-aF-hiQ"/>
+                            <constraint firstItem="JSP-lA-EfU" firstAttribute="leading" secondItem="PS2-EQ-0Cw" secondAttribute="leading" id="IdJ-tO-9bv"/>
                             <constraint firstItem="I7j-70-2ab" firstAttribute="centerY" secondItem="PS2-EQ-0Cw" secondAttribute="centerY" id="PaM-yg-WV8"/>
+                            <constraint firstAttribute="bottom" secondItem="cg1-Dl-p2m" secondAttribute="bottom" constant="49" id="WVE-Dn-exJ"/>
                             <constraint firstAttribute="trailing" secondItem="qpu-GX-MAn" secondAttribute="trailing" id="Ys9-b0-5b2"/>
                             <constraint firstItem="qpu-GX-MAn" firstAttribute="top" secondItem="PS2-EQ-0Cw" secondAttribute="top" id="dim-Ub-X66"/>
+                            <constraint firstAttribute="trailing" secondItem="cg1-Dl-p2m" secondAttribute="trailing" constant="20" id="hKZ-X4-fnT"/>
                             <constraint firstItem="I7j-70-2ab" firstAttribute="centerX" secondItem="mWK-TX-Sq7" secondAttribute="centerX" id="kES-Cv-wmT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="cg1-Dl-p2m" secondAttribute="trailing" id="nub-U8-AU7"/>
+                            <constraint firstAttribute="bottom" secondItem="JSP-lA-EfU" secondAttribute="bottom" constant="49" id="kap-Bf-d5O"/>
                             <constraint firstAttribute="trailing" secondItem="mWK-TX-Sq7" secondAttribute="trailing" id="uOo-hi-Ywr"/>
-                            <constraint firstItem="TKW-zq-fFz" firstAttribute="top" secondItem="cg1-Dl-p2m" secondAttribute="bottom" id="wwk-fR-52e"/>
+                            <constraint firstItem="cg1-Dl-p2m" firstAttribute="leading" secondItem="PS2-EQ-0Cw" secondAttribute="leading" constant="20" id="zCz-Oj-pxx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Image" id="hjO-Ru-oqd">
@@ -219,6 +233,7 @@
                         <outlet property="loadingProgressView" destination="mWK-TX-Sq7" id="t7I-gQ-jZK"/>
                         <outlet property="scrollView" destination="qpu-GX-MAn" id="exO-VT-ptJ"/>
                         <outlet property="tagsLabel" destination="cg1-Dl-p2m" id="qHu-0r-gL3"/>
+                        <outlet property="tagsLabelVisualEffectView" destination="JSP-lA-EfU" id="kOr-Nz-GGI"/>
                         <segue destination="EsQ-fv-GgZ" kind="show" identifier="showImageInfo" id="iWI-8A-hfX"/>
                     </connections>
                 </viewController>
