@@ -215,6 +215,7 @@ class SingleImageViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelLoadImage()
+        isShowingUI = true
     }
     
     private func setImageViewSize() {
