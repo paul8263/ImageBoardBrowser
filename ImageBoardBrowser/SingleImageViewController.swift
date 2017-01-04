@@ -28,27 +28,23 @@ class SingleImageViewController: UIViewController {
             if newValue {
                 self.navigationController?.navigationBar.isHidden = false
                 self.tabBarController?.tabBar.isHidden = false
-                view.bringSubview(toFront: tagsLabelVisualEffectView)
-                view.bringSubview(toFront: tagsLabel)
                 UIView.animate(withDuration: 0.5, animations: {
                     self.navigationController?.navigationBar.alpha = 1
                     self.tabBarController?.tabBar.alpha = 1
-                    self.tagsLabel.alpha = 1
-                    
                     self.tagsLabelVisualEffectView.alpha = 1
-                })
+                }) { (finished) in
+                    self.setImageViewCenterToScrollView()
+                }
             } else {
                 UIView.animate(withDuration: 0.5, animations: {
                     self.navigationController?.navigationBar.alpha = 0
                     self.tabBarController?.tabBar.alpha = 0
-                    self.tagsLabel.alpha = 0
-                    
                     self.tagsLabelVisualEffectView.alpha = 0
-                    
                 }) { (finished) in
                     self.navigationController?.navigationBar.isHidden = true
                     self.tabBarController?.tabBar.isHidden = true
-                    self.view.bringSubview(toFront: self.scrollView)
+                    
+                    self.setImageViewCenterToScrollView()
                 }
             }
         }
@@ -273,8 +269,8 @@ class SingleImageViewController: UIViewController {
         },
             completed: { void in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                self.loadingProgressView.isHidden = true
                 self.imageLoadingIndicator.stopAnimating()
+                self.loadingProgressView.isHidden = true
         })
     }
     
